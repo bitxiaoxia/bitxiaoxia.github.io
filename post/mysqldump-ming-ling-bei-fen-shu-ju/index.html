@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>mysqldump命令备份数据 | 学海拾遗</title>
+<meta name="description" content="工作生活中偶有所得，随手记下。">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://bitxiaoxia.github.io/favicon.ico?v=1564044120114">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://bitxiaoxia.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://bitxiaoxia.github.io">
+        <img src="https://bitxiaoxia.github.io/images/avatar.png?v=1564044120114" class="site-logo">
+        <h1 class="site-title">学海拾遗</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="https://bitxiaoxia.github.io" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="https://bitxiaoxia.github.io/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="https://bitxiaoxia.github.io/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="https://bitxiaoxia.github.io/post/about/" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      工作生活中偶有所得，随手记下。
+    </div>
+    <div class="site-footer">
+      转载注明出处</p>
+Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://bitxiaoxia.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">mysqldump命令备份数据</h2>
+            <div class="post-date">2019-07-25</div>
+            
+            <div class="post-content">
+              <h3 id="简述">简述</h3>
+<blockquote>
+<p>可以使用<code>man mysqldump</code>命令来查看帮助。<br>
+注：简述内容节选和翻译自man mysqldump</p>
+</blockquote>
+<!-- more -->
+<p>mysqldump是SQL数据库备份工具，可以将MySQL的表结构和数据dump成文件，用来备份或者迁移到其他SQL服务器上。文件中默认包含SQL语句，用来创建表，填充数据。mysqldump也可以生成CSV，XML或者其他限定格式类型的文件。<br>
+如果你的MySQL服务器是MyISAM引擎，推荐使用mysqlhotcopy代替，因为mysqlhotcopy备份和恢复更快。<br>
+下面是mysqldump的基础用法：</p>
+<pre><code>shell&gt; mysqldump [options] db_name [tbl_name ...]
+shell&gt; mysqldump [options] --databases db_name ...
+shell&gt; mysqldump [options] --all-databases
+</code></pre>
+<p>如果你在<strong>db_name</strong>后面没有跟<strong>table_name</strong>，或者使用了<code>--databases</code> 或 <code>--all-databases</code>命令，整个数据库都会dump。<br>
+除非你在命令中指定，mysqldump命令默认不会dump <strong>INFORMATION_SCHEMA</strong>数据库，如果指定，必须使用<code>--skip-lock-tables</code> 命令。在MySQL5.5之前，就算你指定了命令，也会忽略掉<strong>INFORMATION_SCHEMA</strong>数据库。<br>
+mysqldump也不会dump <strong>performance_schema</strong>数据库。<br>
+有些指令是其他部分指令的速写。</p>
+<ul>
+<li><code>--opt</code> 指令可以同时代替 <code>--add-drop-table --add-locks --create-options --disable-keys --extended-insert --lock-tables --quick --set-charset</code>.</li>
+<li>以上指令也是mysqldump的默认设置。</li>
+<li><code>--compact</code> 等同于 <code>--skip-add-drop-table --skip-add-locks --skip-comments --skip-disable-keys --skip-set-charset</code></li>
+<li>同样的，还可以使用 <code>--skip-opt</code> 或者 <code>--skip-compact</code>指令来反向操作。</li>
+</ul>
+<p>如果指令间有冲突的话，靠后的指令生效。 如 <code>--skip-quick --opt</code> 实质上等同于 <code>--opt</code><br>
+mysqldump默认一行一行的取回和dump表数据。它也可以一次性全部取回表数据并缓存在内存中，然后一起dump。如果表数据量比较大，采用第二种方式可能会有些问题。<br>
+如果使用新版的mysqldump的数据需要写入一个比较旧版本的MySQL服务器数据，你不应该使用<code>--opt</code>或者<code>--extended-insert</code>你需要使用<code>--skip-opt</code>。原因是<code>--skip-opt</code>命令会一次Insert写入多行数据，可能会导致旧版MySQL服务出现问题。</p>
+<h3 id="一些常用方法">一些常用方法</h3>
+<ol>
+<li>只导出表结构,不导出数据</li>
+</ol>
+<pre><code class="language-c">//主要是--no-data，也可以用-d命令代替
+//全部数据库
+mysqldump --no-data --opt -A  --skip-lock-tables -u [user]　-p [password]　&gt;　[sqlServerId].sql　
+//部分数据
+mysqldump --no-data --opt --skip-lock-tables -B [db_name] --table [table_name] -u [user]　-p [password]　&gt;　[db_table_create].sql
+//--opt 包括--add-drop-table，可以加上 --add-drop-database指令
+</code></pre>
+<ol start="2">
+<li>导出数据不导出结构</li>
+</ol>
+<pre><code>//主要是--no-create-info，也可以用-t代替
+mysqldump --no-create-info -B [db_name] -u[user]　-p[password]　&gt;　[]].sql　 
+</code></pre>
+<ol start="3">
+<li>导出数据和表结构</li>
+</ol>
+<pre><code>mysqldump　数据库名　-uroot　-p　&gt;　xxx.sql　 
+</code></pre>
+<ol start="4">
+<li>导出特定的数据：</li>
+</ol>
+<pre><code>mysqldump -u [user] -p [password] -B [db_name] --table [table_name] -t --where='[condition]'&gt;　[result].sql
+//eg:
+ mysqldump -u root -B test --table user -t --where='user_name like &quot;测试%&quot;' &gt;&gt; testUser.sql
+</code></pre>
+<h3 id="导入数据">导入数据：</h3>
+<p>由于mysqldump导出的是完整的SQL语句，所以用mysql客户程序很容易就能把数据导入了：</p>
+<pre><code>mysql [db_name] &lt; [dump].sql 
+</code></pre>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://bitxiaoxia.github.io/tag/HoFlpAc7V" class="tag">
+                    MySQL
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://bitxiaoxia.github.io/post/wang-zhi-shou-lu">
+                  <h3 class="post-title">
+                    网址收录
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>
