@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>CentOS 7服务器初始化(一) | 学海拾遗</title>
+<meta name="description" content="工作生活中偶有所得，随手记下。">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://bitxiaoxia.github.io/favicon.ico?v=1564123835450">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://bitxiaoxia.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://bitxiaoxia.github.io">
+        <img src="https://bitxiaoxia.github.io/images/avatar.png?v=1564123835450" class="site-logo">
+        <h1 class="site-title">学海拾遗</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="https://bitxiaoxia.github.io" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="https://bitxiaoxia.github.io/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="https://bitxiaoxia.github.io/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="https://bitxiaoxia.github.io/post/about/" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      工作生活中偶有所得，随手记下。
+    </div>
+    <div class="site-footer">
+      转载注明出处</p>
+Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://bitxiaoxia.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">CentOS 7服务器初始化(一)</h2>
+            <div class="post-date">2019-07-26</div>
+            
+            <div class="post-content">
+              <ul>
+<li>更改SSH配置</li>
+<li>挂载硬盘</li>
+<li>安装必要软件</li>
+<li>...</li>
+</ul>
+<!-- more -->
+<p>如果新购一台CentOS服务器，需要初始化提供web服务或长连接服务，可以参考这篇文章。文章中的步骤大都来自互联网，亲自尝试过可用。<br>
+<strong>说明：以下命令$ 表示使用root账号，#表示使用非root账号，&gt;表示修改文件中的内容，//表示注释</strong></p>
+<h2 id="更改ssh配置">更改SSH配置</h2>
+<ul>
+<li>修改SSHPort的必要性</li>
+</ul>
+<blockquote>
+<p>由于服务器默认使用22端口做ssh，假设我们不修改sshPort的话，会导致每次登陆服务器会看到大量的login failed异常，这些异常通常是网上一些自动扫描工具导致的，如果服务器有弱密码，很可能会被攻破。</p>
+</blockquote>
+<ul>
+<li>使用密钥登陆的必要性</li>
+</ul>
+<blockquote>
+<p>1.可以保证只有特定的机器可以登陆服务器。<br>
+2.可以有效的管理登陆权限，尤其是在公用服务器的情况下，假设公司有人入职或离职，只需增加或删除对应的key即可。</p>
+</blockquote>
+<pre><code>//修改ssh配置文件
+$ vim /etc/ssh/sshd_config 
+&gt; Port 911  // 修改Port为一个未被占用的端口
+&gt; PasswordAuthentication no  // 禁用密码
+&gt; PermitRootLogin no  // 禁用root登陆
+&gt; AuthorizedKeysFile  .ssh/authorized_keys  // 设置密钥文件
+
+// 生成ssh登陆文件。退出root账户，使用默认账户
+# ssh-keygen  // 执行上述命令后，会在当前用户根目录下生成.ssh文件夹
+# ls ~/.ssh/  // 存在以下文件，其中id_rsa是本机私钥，id_rsa.pub这个是本机公钥。
+authorized_keys  id_rsa  id_rsa.pub
+# vim ~/.ssh/authorized_keys  // 修改可以登陆服务器的公钥（其他主机的公钥）
+
+// 处理完以上步骤后需要重启ssh服务
+$ /etc/init.d/ssh restart
+// 或
+$ service sshd restart
+
+// 注意，在断开本次连接之前，需要确认，新配置的ssh登录方式已经可以正常登录。
+</code></pre>
+<h2 id="关闭postfix">关闭postfix</h2>
+<p>postfix 是用来做邮件服务的，除非特定的机器，都用不到该服务。</p>
+<pre><code>$ systemctl disable postfix.service;
+$ chkconfig postfix off;
+$ service postfix stop
+</code></pre>
+<h2 id="挂载硬盘">挂载硬盘</h2>
+<p>如果除系统盘外还有其它硬盘，需要挂载硬盘。</p>
+<pre><code>$ fdisk -l  //找到未挂载的硬盘
+$ fdisk /dev/vdb //fdisk后跟的为上一步找到的未挂载的硬盘
+//之后出现fdisk的交互页面，按照界面的提示，依次输入“n”(新建分区)、“p”(新建扩展分区)、“1”(使用第1个主分区)，两次回车(使用默认配置)，输入“wq”(保存分区表)，回车开始分区。
+//使用“fdisk -l”命令，即可查看到，新的分区vdb1已经创建完成。
+//分区后需要对分好的区进行格式化
+$ mkfs.ext4 /dev/vdb1  //使用ext4文件系统，这里可以自选其它文件系统
+//之后将/home挂载到云硬盘上，因为我们的数据，即每个用户的数据都存储在/home目录下
+$ mkdir /home
+$ mount /dev/vdb1 /home
+//为了云服务器在重启或开机时能自动挂载数据盘，必须将分区信息添加到/etc/fstab中。
+$ echo '/dev/vdb1 /home ext4 defaults 0 0' &gt;&gt; /etc/fstab
+//之后查看，注意磁盘名，如果写错会导致重启失败。
+</code></pre>
+<h2 id="创建非管理员账户">创建非管理员账户</h2>
+<pre><code>$ adduser bitxiaoxia
+$ passwd bitxiaoxia
+//之后输入两次账户的密码
+</code></pre>
+<h2 id="安装必要软件">安装必要软件</h2>
+<pre><code>yum upgrade yum
+yum install man openssh-clients telnet lrzsz wget traceroute tcpdump lsof ntp vim gcc gcc-c++ nc crontabs bind-utils tar 
+</code></pre>
+<p><strong>crontab自启动</strong></p>
+<pre><code>service crond start ; 
+chkconfig --level 345 crond on
+</code></pre>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://bitxiaoxia.github.io/tag/RwUVNxxYW" class="tag">
+                    linux
+                  </a>
+                
+                  <a href="https://bitxiaoxia.github.io/tag/fEeaCQ9plp" class="tag">
+                    服务器
+                  </a>
+                
+                  <a href="https://bitxiaoxia.github.io/tag/3p3I56N-TM" class="tag">
+                    ssh
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://bitxiaoxia.github.io/post/mysqldump-ming-ling-bei-fen-shu-ju">
+                  <h3 class="post-title">
+                    mysqldump命令备份数据
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

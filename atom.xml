@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://bitxiaoxia.github.io</id>
     <title>学海拾遗</title>
-    <updated>2019-07-25T08:42:28.607Z</updated>
+    <updated>2019-07-26T06:50:37.620Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://bitxiaoxia.github.io"/>
     <link rel="self" href="https://bitxiaoxia.github.io/atom.xml"/>
@@ -11,76 +11,41 @@
     <icon>https://bitxiaoxia.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, 学海拾遗</rights>
     <entry>
+        <title type="html"><![CDATA[CentOS 7服务器初始化(一)]]></title>
+        <id>https://bitxiaoxia.github.io/post/GDtsBi00c</id>
+        <link href="https://bitxiaoxia.github.io/post/GDtsBi00c">
+        </link>
+        <updated>2019-07-26T02:18:26.000Z</updated>
+        <summary type="html"><![CDATA[<ul>
+<li>更改SSH配置</li>
+<li>挂载硬盘</li>
+<li>安装必要软件</li>
+<li>...</li>
+</ul>
+]]></summary>
+        <content type="html"><![CDATA[<ul>
+<li>更改SSH配置</li>
+<li>挂载硬盘</li>
+<li>安装必要软件</li>
+<li>...</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[mysqldump命令备份数据]]></title>
         <id>https://bitxiaoxia.github.io/post/mysqldump-ming-ling-bei-fen-shu-ju</id>
         <link href="https://bitxiaoxia.github.io/post/mysqldump-ming-ling-bei-fen-shu-ju">
         </link>
         <updated>2019-07-25T08:34:43.000Z</updated>
-        <summary type="html"><![CDATA[<h3 id="简述">简述</h3>
+        <summary type="html"><![CDATA[<p>备份MySQL数据库相关命令总结，可以直接看常用命令。</p>
 <blockquote>
-<p>可以使用<code>man mysqldump</code>命令来查看帮助。<br>
-注：简述内容节选和翻译自man mysqldump</p>
+<p>mysqldump --no-data --opt --skip-lock-tables -B [db_name] --table [table_name] -u [user]　-p [password]　&gt;　[db_table_create].sql</p>
 </blockquote>
 ]]></summary>
-        <content type="html"><![CDATA[<h3 id="简述">简述</h3>
+        <content type="html"><![CDATA[<p>备份MySQL数据库相关命令总结，可以直接看常用命令。</p>
 <blockquote>
-<p>可以使用<code>man mysqldump</code>命令来查看帮助。<br>
-注：简述内容节选和翻译自man mysqldump</p>
+<p>mysqldump --no-data --opt --skip-lock-tables -B [db_name] --table [table_name] -u [user]　-p [password]　&gt;　[db_table_create].sql</p>
 </blockquote>
-<!-- more -->
-<p>mysqldump是SQL数据库备份工具，可以将MySQL的表结构和数据dump成文件，用来备份或者迁移到其他SQL服务器上。文件中默认包含SQL语句，用来创建表，填充数据。mysqldump也可以生成CSV，XML或者其他限定格式类型的文件。<br>
-如果你的MySQL服务器是MyISAM引擎，推荐使用mysqlhotcopy代替，因为mysqlhotcopy备份和恢复更快。<br>
-下面是mysqldump的基础用法：</p>
-<pre><code>shell&gt; mysqldump [options] db_name [tbl_name ...]
-shell&gt; mysqldump [options] --databases db_name ...
-shell&gt; mysqldump [options] --all-databases
-</code></pre>
-<p>如果你在<strong>db_name</strong>后面没有跟<strong>table_name</strong>，或者使用了<code>--databases</code> 或 <code>--all-databases</code>命令，整个数据库都会dump。<br>
-除非你在命令中指定，mysqldump命令默认不会dump <strong>INFORMATION_SCHEMA</strong>数据库，如果指定，必须使用<code>--skip-lock-tables</code> 命令。在MySQL5.5之前，就算你指定了命令，也会忽略掉<strong>INFORMATION_SCHEMA</strong>数据库。<br>
-mysqldump也不会dump <strong>performance_schema</strong>数据库。<br>
-有些指令是其他部分指令的速写。</p>
-<ul>
-<li><code>--opt</code> 指令可以同时代替 <code>--add-drop-table --add-locks --create-options --disable-keys --extended-insert --lock-tables --quick --set-charset</code>.</li>
-<li>以上指令也是mysqldump的默认设置。</li>
-<li><code>--compact</code> 等同于 <code>--skip-add-drop-table --skip-add-locks --skip-comments --skip-disable-keys --skip-set-charset</code></li>
-<li>同样的，还可以使用 <code>--skip-opt</code> 或者 <code>--skip-compact</code>指令来反向操作。</li>
-</ul>
-<p>如果指令间有冲突的话，靠后的指令生效。 如 <code>--skip-quick --opt</code> 实质上等同于 <code>--opt</code><br>
-mysqldump默认一行一行的取回和dump表数据。它也可以一次性全部取回表数据并缓存在内存中，然后一起dump。如果表数据量比较大，采用第二种方式可能会有些问题。<br>
-如果使用新版的mysqldump的数据需要写入一个比较旧版本的MySQL服务器数据，你不应该使用<code>--opt</code>或者<code>--extended-insert</code>你需要使用<code>--skip-opt</code>。原因是<code>--skip-opt</code>命令会一次Insert写入多行数据，可能会导致旧版MySQL服务出现问题。</p>
-<h3 id="一些常用方法">一些常用方法</h3>
-<ol>
-<li>只导出表结构,不导出数据</li>
-</ol>
-<pre><code class="language-c">//主要是--no-data，也可以用-d命令代替
-//全部数据库
-mysqldump --no-data --opt -A  --skip-lock-tables -u [user]　-p [password]　&gt;　[sqlServerId].sql　
-//部分数据
-mysqldump --no-data --opt --skip-lock-tables -B [db_name] --table [table_name] -u [user]　-p [password]　&gt;　[db_table_create].sql
-//--opt 包括--add-drop-table，可以加上 --add-drop-database指令
-</code></pre>
-<ol start="2">
-<li>导出数据不导出结构</li>
-</ol>
-<pre><code>//主要是--no-create-info，也可以用-t代替
-mysqldump --no-create-info -B [db_name] -u[user]　-p[password]　&gt;　[]].sql　 
-</code></pre>
-<ol start="3">
-<li>导出数据和表结构</li>
-</ol>
-<pre><code>mysqldump　数据库名　-uroot　-p　&gt;　xxx.sql　 
-</code></pre>
-<ol start="4">
-<li>导出特定的数据：</li>
-</ol>
-<pre><code>mysqldump -u [user] -p [password] -B [db_name] --table [table_name] -t --where='[condition]'&gt;　[result].sql
-//eg:
- mysqldump -u root -B test --table user -t --where='user_name like &quot;测试%&quot;' &gt;&gt; testUser.sql
-</code></pre>
-<h3 id="导入数据">导入数据：</h3>
-<p>由于mysqldump导出的是完整的SQL语句，所以用mysql客户程序很容易就能把数据导入了：</p>
-<pre><code>mysql [db_name] &lt; [dump].sql 
-</code></pre>
 ]]></content>
     </entry>
     <entry>
@@ -92,10 +57,6 @@ mysqldump --no-create-info -B [db_name] -u[user]　-p[password]　&gt;　[]].sql
         <summary type="html"><![CDATA[<p>一些常用的网站</p>
 ]]></summary>
         <content type="html"><![CDATA[<p>一些常用的网站</p>
-<!-- more -->
-<p><a href="http://idea.lanyus.com/">IntelliJ IDEA注册码</a><br>
-<a href="https://gridea.dev/">快速开始 | Gridea</a><br>
-<a href="https://qqe2.com/">Json在线编辑</a></p>
 ]]></content>
     </entry>
     <entry>
@@ -109,25 +70,6 @@ mysqldump --no-create-info -B [db_name] -u[user]　-p[password]　&gt;　[]].sql
 ]]></summary>
         <content type="html"><![CDATA[<p>本网站通过 <strong>Gridea</strong>创建，以下为Gridea的介绍 ！<br>
 ✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-<!-- more -->
-<p><a href="https://github.com/getgridea/gridea">Github</a><br>
-<a href="http://hvenotes.fehey.com/">Gridea 主页</a><br>
-<a href="http://fehey.com/">示例网站</a></p>
-<h2 id="特性">特性👇</h2>
-<p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
-<p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
-<p>🏷️  你可以对文章进行标签分组</p>
-<p>📋  你可以自定义菜单，甚至可以创建外部链接菜单</p>
-<p>💻  你可以在 <strong>𝖶𝗂𝗇𝖽𝗈𝗐𝗌</strong> 或 <strong>𝖬𝖺𝖼𝖮𝖲</strong> 设备上使用此客户端</p>
-<p>🌎  你可以使用 <strong>𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌</strong> 或 <strong>Coding Pages</strong> 向世界展示，未来将支持更多平台</p>
-<p>💬  你可以进行简单的配置，接入 <a href="https://github.com/gitalk/gitalk">Gitalk</a> 或 <a href="https://github.com/SukkaW/DisqusJS">DisqusJS</a> 评论系统</p>
-<p>🇬🇧  你可以使用<strong>中文简体</strong>或<strong>英语</strong></p>
-<p>🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力</p>
-<p>🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步</p>
-<p>🌱 当然 <strong>Gridea</strong> 还很年轻，有很多不足，但请相信，它会不停向前🏃</p>
-<p>未来，它一定会成为你离不开的伙伴</p>
-<p>尽情发挥你的才华吧！</p>
-<p>😘 Enjoy~</p>
 ]]></content>
     </entry>
 </feed>

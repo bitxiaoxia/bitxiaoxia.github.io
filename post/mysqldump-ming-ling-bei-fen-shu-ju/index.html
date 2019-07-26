@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://bitxiaoxia.github.io/favicon.ico?v=1564044120114">
+<link rel="shortcut icon" href="https://bitxiaoxia.github.io/favicon.ico?v=1564123835450">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://bitxiaoxia.github.io/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://bitxiaoxia.github.io">
-        <img src="https://bitxiaoxia.github.io/images/avatar.png?v=1564044120114" class="site-logo">
+        <img src="https://bitxiaoxia.github.io/images/avatar.png?v=1564123835450" class="site-logo">
         <h1 class="site-title">学海拾遗</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -97,12 +97,16 @@ Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea<
             <div class="post-date">2019-07-25</div>
             
             <div class="post-content">
-              <h3 id="简述">简述</h3>
+              <p>备份MySQL数据库相关命令总结，可以直接看常用命令。</p>
+<blockquote>
+<p>mysqldump --no-data --opt --skip-lock-tables -B [db_name] --table [table_name] -u [user]　-p [password]　&gt;　[db_table_create].sql</p>
+</blockquote>
+<!-- more -->
+<h3 id="简述">简述</h3>
 <blockquote>
 <p>可以使用<code>man mysqldump</code>命令来查看帮助。<br>
 注：简述内容节选和翻译自man mysqldump</p>
 </blockquote>
-<!-- more -->
 <p>mysqldump是SQL数据库备份工具，可以将MySQL的表结构和数据dump成文件，用来备份或者迁移到其他SQL服务器上。文件中默认包含SQL语句，用来创建表，填充数据。mysqldump也可以生成CSV，XML或者其他限定格式类型的文件。<br>
 如果你的MySQL服务器是MyISAM引擎，推荐使用mysqlhotcopy代替，因为mysqlhotcopy备份和恢复更快。<br>
 下面是mysqldump的基础用法：</p>
@@ -160,6 +164,14 @@ mysqldump --no-create-info -B [db_name] -u[user]　-p[password]　&gt;　[]].sql
             </div>
             
               <div class="tag-container">
+                
+                  <a href="https://bitxiaoxia.github.io/tag/RwUVNxxYW" class="tag">
+                    linux
+                  </a>
+                
+                  <a href="https://bitxiaoxia.github.io/tag/fEeaCQ9plp" class="tag">
+                    服务器
+                  </a>
                 
                   <a href="https://bitxiaoxia.github.io/tag/HoFlpAc7V" class="tag">
                     MySQL
