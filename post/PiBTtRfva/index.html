@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>网址收录 | 学海拾遗</title>
+<title> CentOS 7服务器初始化(三) | 学海拾遗</title>
 <meta name="description" content="工作生活中偶有所得，随手记下。">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -93,24 +93,59 @@ Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea<
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
-            <h2 class="post-title">网址收录</h2>
-            <div class="post-date">2019-07-25</div>
+            <h2 class="post-title"> CentOS 7服务器初始化(三)</h2>
+            <div class="post-date">2019-07-26</div>
             
             <div class="post-content">
-              <p>一些常用的网站</p>
+              <p>常用的性能调优。可以根据实际情况选用。</p>
 <!-- more -->
-<p><a href="http://idea.lanyus.com/">IntelliJ IDEA注册码</a><br>
-<a href="https://gridea.dev/">快速开始 | Gridea</a><br>
-<a href="https://qqe2.com/">Json在线编辑</a></p>
+<h2 id="修改最大打开文件数">修改最大打开文件数：</h2>
+<pre><code>$ vim /etc/security/limits.conf 
+// 增加两行
+* soft nofile 204800
+* hard nofile 204800
+</code></pre>
+<h2 id="修改用户最大进程数">修改用户最大进程数：</h2>
+<pre><code>$ vim /etc/security/limits.d/20-nproc.conf
+//增加一行
+* soft nproc 10240
+</code></pre>
+<h2 id="修改连接追踪">修改连接追踪:</h2>
+<pre><code>$ sysctl -w net.netfilter.nf_conntrack_max=655360, 
+$ sysctl -w net.netfilter.nf_conntrack_tcp_timeout_established=28800
+</code></pre>
+<h2 id="修改监听队列长度">修改监听队列长度：</h2>
+<pre><code>$ echo &quot;8192&quot; &gt; /proc/sys/net/core/somaxconn
+</code></pre>
+<h2 id="修改tcp连接重用">修改Tcp连接重用：</h2>
+<pre><code>$ vim /etc/sysctl.conf
+//改为
+net.ipv4.ip_forward = 0
+net.ipv4.conf.default.rp_filter = 1
+net.ipv4.conf.default.accept_source_route = 0
+kernel.sysrq = 0
+kernel.core_uses_pid = 1
+net.ipv4.tcp_syncookies = 1
+kernel.msgmnb = 65536
+kernel.msgmax = 65536
+kernel.shmmax = 68719476736
+kernel.shmall = 4294967296
+net.ipv4.tcp_tw_reuse = 1
+net.ipv4.tcp_tw_recycle = 1
+net.ipv4.tcp_fin_timeout = 300
+
+//保存后退出，执行命令：
+$ sysctl -p
+</code></pre>
 
             </div>
             
             
               <div class="next-post">
                 <div class="next">下一篇</div>
-                <a href="https://bitxiaoxia.github.io/post/hello-gridea">
+                <a href="https://bitxiaoxia.github.io/post/1f7FnMbXR">
                   <h3 class="post-title">
-                    本网站搭建工具
+                    CentOS 7服务器初始化(二)
                   </h3>
                 </a>
               </div>

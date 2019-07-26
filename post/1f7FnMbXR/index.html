@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>CentOS 7服务器初始化(二) | 学海拾遗</title>
+<meta name="description" content="工作生活中偶有所得，随手记下。">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://bitxiaoxia.github.io/favicon.ico?v=1564125561849">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://bitxiaoxia.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://bitxiaoxia.github.io">
+        <img src="https://bitxiaoxia.github.io/images/avatar.png?v=1564125561849" class="site-logo">
+        <h1 class="site-title">学海拾遗</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="https://bitxiaoxia.github.io" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="https://bitxiaoxia.github.io/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="https://bitxiaoxia.github.io/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="https://bitxiaoxia.github.io/post/about/" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      工作生活中偶有所得，随手记下。
+    </div>
+    <div class="site-footer">
+      转载注明出处</p>
+Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://bitxiaoxia.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">CentOS 7服务器初始化(二)</h2>
+            <div class="post-date">2019-07-26</div>
+            
+            <div class="post-content">
+              <ul>
+<li>安装mysql</li>
+<li>安装jdk1.8</li>
+<li>安装nginx</li>
+<li>安装git</li>
+<li>安装maven</li>
+</ul>
+<!-- more -->
+<h2 id="安装mysql">安装mysql</h2>
+<p>使用 MariaDB 代替，MariaDB 数据库管理系统是 MySQL 的一个分支，主要由开源社区在维护，采用 GPL 授权许可。开发这个分支的原因之一是：甲骨文公司收购了 MySQL 后，有将 MySQL 闭源的潜在风险，因此社区采用分支的方式来避开这个风险。</p>
+<p>MariaDB的目的是完全兼容MySQL，包括API和命令行，使之能轻松成为MySQL的代替品。</p>
+<pre><code>$ yum install mariadb-server mariadb 
+</code></pre>
+<p><strong>mariadb数据库的相关命令</strong></p>
+<pre><code>$ systemctl start mariadb  //启动MariaDB
+$ systemctl stop mariadb  //停止MariaDB
+$ systemctl restart mariadb  //重启MariaDB
+$ systemctl enable mariadb  //设置开机启动
+</code></pre>
+<p><strong>mariadb的配置</strong></p>
+<pre><code>// 设置密码:
+$ mysql_secure_installation
+Enter current password for root (enter for none):&lt;–初次运行直接回车
+Set root password? [Y/n] &lt;– 是否设置root用户密码，输入y并回车或直接回车
+New password: &lt;– 设置root用户的密码
+Re-enter new password: &lt;– 再输入一次你设置的密码
+
+Remove anonymous users? [Y/n] &lt;– 是否删除匿名用户，回车
+Disallow root login remotely? [Y/n] &lt;–是否禁止root远程登录,回车,
+Remove test database and access to it? [Y/n] &lt;– 是否删除test数据库，回车
+Reload privilege tables now? [Y/n] &lt;– 是否重新加载权限表，回车
+初始化MariaDB完成，接下来测试登录
+# mysql -uroot -p [回车，之后输入密码]
+</code></pre>
+<h2 id="安装jdk180_191">安装jdk1.8.0_191</h2>
+<p>本机下载好jdk，使用winscp或其他scp工具传到服务器上。（java官网太慢，使用迅雷下载）。解压，移动，软连接，修改JAVA_HOME等环境变量。</p>
+<blockquote>
+<p>注：如果想要使用Let's encrypt申请的免费SSL证书，需要JDK升级到8u101版本以上。</p>
+</blockquote>
+<pre><code># tar xvf jdk-8u191-linux-x64.tar.gz;
+$ mv jdk1.8.0_191/ /opt/;
+$ cd /opt/;
+$ ln -s jdk1.8.0_191/ jdk8;  //做一个软连接
+$ echo &quot;&quot; &gt;&gt; /etc/profile;
+$ echo &quot;export JAVA_HOME=/opt/jdk8&quot; &gt;&gt; /etc/profile;
+$ echo &quot;export PATH=\$PATH:\$JAVA_HOME/bin&quot; &gt;&gt; /etc/profile;
+$ echo &quot;export CLASSPATH=.:\$JAVA_HOME/lib/tools.jar:\$JAVA_HOME/jre/lib/rt.jar&quot; &gt;&gt; /etc/profile;
+
+$ source /etc/profile
+//使用java和javac测试是否安装成功
+</code></pre>
+<h2 id="安装nginx">安装nginx</h2>
+<p><strong>说明：</strong></p>
+<p>公网应用型和公网固定IP型的区别在于，应用型可以根据URL转发，IP型不会对请求进行处理。采用公网应用型负载均衡将请求转发至安装有nginx的机器上，之后再通过自己的nginx分发流量，这样可以做到隐藏tomcat端口的作用</p>
+<pre><code>// 首先去http://tengine.taobao.org/下载对应包。
+$  yum install pcre pcre-devel openssl openssl-devel jemalloc jemalloc-devel;
+
+$ ./configure --prefix=/opt/tengine --with-jemalloc --user=root --with-pcre --with-http_gzip_static_module --with-http_realip_module --with-http_stub_status_module --with-http_concat_module
+
+$ make test
+$ make &amp;&amp; make install
+
+// make test可能会出现错误
+//* Parse errors: Bad plan.  You planned 77 tests but ran 0. 
+// 忽略类似这种的错误
+//* tests/nginx-tests/cases/server_banner.t 
+//    Non-zero exit status: 2
+//    Parse errors: No plan found in TAP output.
+// 这种错误上面有指出文件,一般是引用的perl文件没有安装。cat对应文件后解决。
+// 如 use Test::More需要perl-Test-Simple；use Digest::MD5 需要perl-Digest-MD5
+</code></pre>
+<h2 id="安装maven">安装maven</h2>
+<p>找到对应的tar包。解压后放在/opt/目录下，之后重写profile文件。</p>
+<pre><code>$ echo &quot;export MAVEN_HOME=/opt/apache-maven-3.0.5&quot; &gt;&gt; /etc/profile;
+$ echo &quot;export PATH=\$PATH:\$MAVEN_HOME/bin&quot;  &gt;&gt; /etc/profile;
+$ source /etc/profile
+//maven需要修改下安装目录下/conf/settings.xml文件、
+//第一次执行mvn -U 时，很慢，之后就好了。
+</code></pre>
+<h2 id="安装git">安装git</h2>
+<pre><code>//安装相关环境
+$ yum install openssl openssl-devel libcurl libcurl-devel expat-devel auto-conf;
+$ yum install perl-ExtUtils-MakeMaker package;
+$ wget https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.7.2.tar.gz
+//解压后make，并且需要配置一些东西，导致部分文件安装到了/usr/local目录下。
+$ tar xvzf git-2.7.2.tar.gz;
+$ cd git-2.7.2;
+$ make configure
+$ ./configure --with-curl --with-expat  --prefix=/opt/git;
+$ make PREFIX=/opt/git;
+$ make PREFIX=/opt/git install;
+//修改环境变量
+$ echo &quot;export GIT_HOME=/opt/git&quot; &gt;&gt; /etc/profile;
+$ echo &quot;export PATH=\$PATH:\$GIT_HOME/bin&quot;  &gt;&gt; /etc/profile;
+$ source /etc/profile
+</code></pre>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://bitxiaoxia.github.io/tag/RwUVNxxYW" class="tag">
+                    linux
+                  </a>
+                
+                  <a href="https://bitxiaoxia.github.io/tag/fEeaCQ9plp" class="tag">
+                    服务器
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://bitxiaoxia.github.io/post/GDtsBi00c">
+                  <h3 class="post-title">
+                    CentOS 7服务器初始化(一)
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>
