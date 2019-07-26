@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>cronolog安装及使用 | 学海拾遗</title>
+<meta name="description" content="工作生活中偶有所得，随手记下。">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://bitxiaoxia.github.io/favicon.ico?v=1564126648837">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://bitxiaoxia.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://bitxiaoxia.github.io">
+        <img src="https://bitxiaoxia.github.io/images/avatar.png?v=1564126648837" class="site-logo">
+        <h1 class="site-title">学海拾遗</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="https://bitxiaoxia.github.io" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="https://bitxiaoxia.github.io/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="https://bitxiaoxia.github.io/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="https://bitxiaoxia.github.io/post/about/" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      工作生活中偶有所得，随手记下。
+    </div>
+    <div class="site-footer">
+      转载注明出处</p>
+Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://bitxiaoxia.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">cronolog安装及使用</h2>
+            <div class="post-date">2019-07-26</div>
+            
+            <div class="post-content">
+              <p>cronolog在写文件的时候，会获取文件句柄，当文件大于2^32-1的时候，没法取到，导致没法继续写。所以生成环境中弃用。建议使用logrotate</p>
+<!-- more -->
+<p>cronolog官网已经没法访问，我们可以使用yum安装。</p>
+<h4 id="1-安装cronolog">1. 安装cronolog</h4>
+<pre><code>$ yum -y install cronlog
+
+//验证安装
+$ which cronolog
+</code></pre>
+<h4 id="2-配置tomcat的catalinash">2. 配置tomcat的Catalina.sh</h4>
+<pre><code>$ vim /opt/apache-tomcat-9.0.13/bin/catalina.sh
+//1.注释掉原来的生产catalina文件的代码。
+touch &quot;$CATALINA_OUT&quot;
+//修改为 
+#touch &quot;$CATALINA_OUT&quot;
+
+//2.文件中两处
+ org.apache.catalina.startup.Bootstrap &quot;$@&quot; start \
+      &gt;&gt; &quot;$CATALINA_OUT&quot; 2&gt;&amp;1 &quot;&amp;&quot;
+//修改为
+org.apache.catalina.startup.Bootstrap &quot;$@&quot; start 2&gt;&amp;1 | /usr/sbin/cronolog &quot;$LOG_PATH&quot;/logs/catalina.out.%Y-%m-%d &gt;&gt; /dev/null &amp;
+//要改两次
+//$LOG_PATH在tomcat的启动脚本中设置
+//完成之后重起Tomcat就可以看到logs文件中存在对应格式的日志文件了！（catalina.out.2018-01-21.log）
+</code></pre>
+<h3 id="linux-日志切割工具cronolog详解"><a href="https://www.aliyun.com/jiaocheng/170723.html">Linux 日志切割工具cronolog详解</a></h3>
+<p><strong>以下内容为转载。标题的链接是阿里云的链接，文章格式有问题，应该是从CSDN扒的。我找到了原文，整理了下格式，贴在下面，可以留作参考。具体腾讯云的安装及使用就看上面的步骤即可。</strong></p>
+<h4 id="一-前言">一、前言</h4>
+<p>大家都知道apache服务器,默认日志文件是不分割的,一个整文件既不易于管理,也不易于分析统计。本文主要讲解Web服务器日志切割工具cronolog,下面我们就来详细的讲解一下。</p>
+<h4 id="二-cronolog-简介">二、cronolog 简介</h4>
+<p>cronolog 是一个简单的过滤程序,读取日志文件条目从标准输入和输出的每个条目并写入指定的日志文件的文件名模板和当前的日期和时间。当扩展文件名的变化,目前的文件是关闭,新开辟的。cronolog 旨在和一个Web服务器一起使用,如Apache,分割访问日志为每天或每月的日志。</p>
+<h3 id="三-cronolog-特点">三、cronolog 特点</h3>
+<p>cronolog主要和Web服务器配置使用,特别是Apache服务器,Apache 默认日志文件是不分割的,一个整文件既不易于管理,也不易于分析统计。安装cronolog后,可以将日志文件按时间分割,易于管理和分析。下面是与Apache配置的一些指令:</p>
+<pre><code>TransferLog &quot;|/usr/sbin/cronolog /web/logs/%Y/%m/%d/access.log&quot;
+ErrorLog    &quot;|/usr/sbin/cronolog /web/logs/%Y/%m/%d/errors.log&quot;
+</code></pre>
+<p>下面是具体案例,</p>
+<pre><code>/web/logs/2002/12/31/access.log/web/logs/2002/12/31/errors.log
+/web/logs/2003/01/01/access.log/web/logs/2003/01/01/errors.log
+</code></pre>
+<h4 id="四-cronolog-安装">四、cronolog 安装</h4>
+<h5 id="1安装yum源">1.安装yum源</h5>
+<pre><code>[root@node6 src]# yum install -y wget vim
+[root@node6 src]# wget http://ftp.sjtu.edu.cn/fedora/epel/6/i386/epel-release-6-8.noarch.rpm
+[root@node6 src]# rpm -ivh epel-release-6-8.noarch.rpm
+warning: epel-release-6-8.noarch.rpm: Header V3 RSA/SHA256Signature, key ID 0608b895: NOKEY
+Preparing...               ########################################### [100%]
+   1:epel-release          ########################################### [100%]
+</code></pre>
+<h5 id="2安装ntp">2.安装ntp</h5>
+<pre><code>[root@node6 src]# yum install -y ntp
+</code></pre>
+<h5 id="3时间同步">3.时间同步</h5>
+<pre><code>[root@node6 src]# ntpdate 202.120.2.101
+28 Dec 17:59:17 ntpdate[1413]: steptimeserver 202.120.2.101 offset -25666.776448 sec
+</code></pre>
+<h5 id="4安装cronolog">4.安装cronolog</h5>
+<p>(1).直接用yum安装</p>
+<pre><code>[root@node6 src]# wget http://cronolog.org/download/cronolog-1.6.2.tar.gz
+[root@node6 src]# tar xf cronolog-1.6.2.tar.gz
+[root@node6 src]# cd cronolog-1.6.2
+[root@node6 cronolog-1.6.2]# ./configure
+[root@node6 cronolog-1.6.2]# make &amp;&amp; make install
+[root@localhost ~]# which cronolog
+/usr/local/sbin/cronolog
+</code></pre>
+<p>(2).源码安装</p>
+<pre><code>[root@node6 src]# wget http://cronolog.org/download/cronolog-1.6.2.tar.gz
+[root@node6 src]# tar xf cronolog-1.6.2.tar.gz
+[root@node6 src]# cd cronolog-1.6.2
+[root@node6 cronolog-1.6.2]# ./configure
+[root@node6 cronolog-1.6.2]# make &amp;&amp; make install
+[root@localhost ~]# which cronolog
+/usr/local/sbin/cronolog
+</code></pre>
+<p>好了,到这里我们的cronolog就安装完成了,下面我们来说一下cronolog如何使用。</p>
+<h4 id="五-cronolog-使用">五、cronolog 使用</h4>
+<h5 id="1基本使用">1.基本使用</h5>
+<pre><code>[root@node6 ~]# cronolog -h
+usage: cronolog [OPTIONS] logfile-spec
+   -H NAME,   --hardlink=NAME maintain a hard link from NAME to current log
+   -S NAME,   --symlink=NAME  maintain a symbolic link from NAME to current log
+   -P NAME,   --prev-symlink=NAME  maintain a symbolic link from NAME to previous log
+   -l NAME,   --link=NAME     same as -S/--symlink
+   -h,        --help          print this help,thenexit
+   -p PERIOD, --period=PERIODsetthe rotation period explicitly
+   -d DELAY,  --delay=DELAY  setthe rotation period delay
+   -o,        --once-only     create single output log from template (not rotated)
+   -x FILE,   --debug=FILE    write debug messages to FILE
+                              ( or to standard errorifFILE is &quot;-&quot;)
+   -a,        --american         Americandateformats
+   -e,        --european         Europeandateformats (default)
+   -s,    --start-time=TIME   startingtime
+   -z TZ, --time-zone=TZ      use TZfortimezone
+   -V,      --version         print version number,thenexit
+</code></pre>
+<p>cronolog 一般是采取管道的方式来工作的,采用如下的形式:</p>
+<pre><code>[root@node6 ~]# loggenerator | cronolog log_file_pattern
+</code></pre>
+<p>注: linux管道，实际上是一个4k的缓冲区</p>
+<p>其中,loggenerator为产生log的程序,而log_file_pattern是日志文件的路径,可以在其中加入cronolog所支持的时间相关的pattern字符,如/www/log/%y/%m/%d/access.log。其pattern为%字符后跟一特殊字符,简述如下:</p>
+<pre><code>转义符:  
+%    %字符
+n    换行
+t    水平制表符
+
+时间域:  
+H    小时(00..23)
+I    小时(01..12)
+p    该locale下的AM或PM标识
+M    分钟(00..59)
+S    秒 (00..61, which allows for leap seconds)
+X    该locale下时间表示符(e.g.:&quot;15:12:47&quot;)
+Z    时区。若时区不能确定，则无意义
+
+日期域:  
+a    该locale下的工作日简名(e.g.: Sun..Sat)
+A    该locale下的工作日全名(e.g.: Sunday ..  Satur-ay)
+b    该locale下的月份简称(e.g.: Jan .. Dec)
+B    该locale下的月份全称(e.g.:  January .. December)
+c    该locale下的日期和时间(e.g.:&quot;Sun Dec 15  14:12:47 GMT 1996&quot;)
+d    当月中的天数 (01 .. 31)
+j    当年中的天数 (001 .. 366)
+m    月数 (01 .. 12)
+U    当年中的星期数，以周日作为一周开始,其中第一周为首个含星期天的星期(00..53)
+W    当年中的星期数，以星期一作为一周的开始,其中第一周为首个含星期天的星期(00..53)
+w    工作日数(0 .. 6, 0表示星期天)
+x    该locale下的日期表示(e.g.&quot;13/04/97&quot;)
+y    两位数的年份(00 .. 99)
+Y    四位数的年份(1970 .. 2038)
+</code></pre>
+<h5 id="2结合apache使用">2.结合apache使用</h5>
+<p>编辑httpd.conf文件,将其中的</p>
+<pre><code>[root@localhost ~]# vim /usr/local/apache2/conf/httpd.conf
+将默认日志： CustomLog &quot;logs/access_log&quot; combined
+修改为：CustomLog &quot;|/usr/local/sbin/cronolog /log/www/access_%Y%m%d.log&quot;combined 即可。其中%Y%m%d为日志文件分割方式，即为“年月日”。
+[root@localhost ~]# /usr/local/apache2/bin/apachectl restart
+</code></pre>
+<h5 id="3下面是效果">3.下面是效果</h5>
+<pre><code>[root@localhost ~]# cd /log/www/
+[root@localhost www]# ll
+total 15072
+-rw-r--r-- 1 root root   16028 Dec 26 15:16 access_20131225.log
+-rw-r--r-- 1 root root 2406307 Dec 26 23:59 access_20131226.log
+-rw-r--r-- 1 root root 8292792 Dec 27 23:59 access_20131227.log
+-rw-r--r-- 1 root root 4682211 Dec 28 18:56 access_20131228.log
+</code></pre>
+<h4 id="六-cronolog-总结">六、cronolog 总结</h4>
+<p>好了,到这里我们的cronolog工具就讲解完成了。有博友会问为什么不用apache自带的日志分割工具?apache自带的日志分割工具rotatelogs,据专家说在进行日志切割时容易丢日志,所以这里我们就用cronolog来做日志切割。最后,希望大家有所收获<sup>_</sup>……</p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://bitxiaoxia.github.io/tag/sSb0-0u20" class="tag">
+                    log
+                  </a>
+                
+                  <a href="https://bitxiaoxia.github.io/tag/RwUVNxxYW" class="tag">
+                    linux
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://bitxiaoxia.github.io/post/9OkQ33VIy">
+                  <h3 class="post-title">
+                    logrotate的使用
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

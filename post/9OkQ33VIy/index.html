@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>MySQL | 学海拾遗</title>
+<title>logrotate的使用 | 学海拾遗</title>
 <meta name="description" content="工作生活中偶有所得，随手记下。">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -92,32 +92,73 @@ Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea<
 
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
-          <h2 class="current-tag">标签: MySQL</h2>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://bitxiaoxia.github.io/post/mysqldump-ming-ling-bei-fen-shu-ju">
-                  <h2 class="post-title">mysqldump命令备份数据</h2>
-                </a>
-                <div class="post-date">
-                  2019-07-25
-                </div>
-                <div class="post-abstract">
-                  <p>备份MySQL数据库相关命令总结，可以直接看常用命令。</p>
-<blockquote>
-<p>mysqldump --no-data --opt --skip-lock-tables -B [db_name] --table [table_name] -u [user]　-p [password]　&gt;　[db_table_create].sql</p>
-</blockquote>
+          <div class="post-detail">
+            <h2 class="post-title">logrotate的使用</h2>
+            <div class="post-date">2019-07-26</div>
+            
+            <div class="post-content">
+              <p>logrotate是linux自带的日志管理工具。配置文件是/etc/logrotate.conf。</p>
+<!-- more -->
+<p>通过阅读配置文件，我们如果想要对日志进行分割的话，只需要在/etc/logrotate.d/文件夹下新建一个配置文件就好。</p>
+<pre><code>//root账户
+$ vim /etc/logrotate.d/tomcat
+//下面是文件内容。
+#/home/bitxiaoxia/logs/8081/catalina.out
+/home/bitxiaoxia/logs/8092/catalina.out{
+  copytruncate
+  daily
+  dateext
+  dateyesterday
+  dateformat .%Y-%m-%d
+  nocompress
+  missingok
+  rotate 60
+  su bitxiaoxia bitxiaoxia
+}
 
-                </div>
+//之后强制刷新一次
+$ logrotate -f /etc/logrotate.d/tomcat
+//文件参数说明：
+//logrotate支持多文件共有规则，所以只需要编辑一个文件即可，可以声明多个文件共用同一套规则。
+//copytruncate可能丢日志，对tomcat而言，可以接受。
+//daily，每天执行一次
+//dateext，文件后缀加日期。
+//dateyesterday，加昨天的日志，
+//dateformat，日期后缀格式
+//nocompress,不压缩
+//missingok，忽略错误
+//rotate 60,保留归档文件60天
+//su bitxiaoxia bitxiaoxia,以Group love，User love创建归档文件。
+</code></pre>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://bitxiaoxia.github.io/tag/sSb0-0u20" class="tag">
+                    log
+                  </a>
+                
+                  <a href="https://bitxiaoxia.github.io/tag/RwUVNxxYW" class="tag">
+                    linux
+                  </a>
+                
               </div>
-              
-            </article>
-          
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://bitxiaoxia.github.io/post/PiBTtRfva">
+                  <h3 class="post-title">
+                     CentOS 7服务器初始化(三)
+                  </h3>
+                </a>
+              </div>
+            
 
-          <div class="pagination-container">
-  
-  
-</div>
+            
+
+          </div>
 
         </div>
       </div>
