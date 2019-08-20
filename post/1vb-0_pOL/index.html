@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>个人介绍 | 学海拾遗</title>
+<title>替换又拍云为腾讯云 | 学海拾遗</title>
 <meta name="description" content="工作生活中偶有所得，随手记下。">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -93,23 +93,34 @@ Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea<
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
-            <h2 class="post-title">个人介绍</h2>
-            <div class="post-date">2019-07-25</div>
+            <h2 class="post-title">替换又拍云为腾讯云</h2>
+            <div class="post-date">2019-08-02</div>
             
             <div class="post-content">
-              <p>网名：小夏        QQ：578477112<br>
-生日：1992-05-15<br>
-爱好：电子游戏，阅读<br>
-学历：本科        院校：北京理工大学</p>
-<p>工作经历：</p>
+              <p>出于成本和便利性的考虑，最近公司考虑把又拍云的存储迁移到腾讯云。</p>
+<!-- more -->
+<h2 id="背景介绍">背景介绍</h2>
 <blockquote>
-<p>2014.07-2016.03   搜房网 从事安卓开发<br>
-2016.03-????.??    北京发现角科技有限公司 从事JAVA后台开发及运维</p>
+<p>公司主机从物理机房迁移到了腾讯云，CDN流量也大部分从又拍云迁走。由于之前又拍云可以使用流量费用抵扣存储费用，在迁走流量之后，导致又拍云每个月的存储费用变得不可忽视。在综合了成本和便利性的情况下，觉得将之前在又拍云的存储迁移到腾讯云上。</p>
 </blockquote>
-<p>网站内容：</p>
+<p><strong>存在的问题：</strong></p>
+<ol>
+<li>又拍云上的存量数据</li>
+<li>又拍云上仍有一些增量</li>
+<li>客户端使用腾讯云的SDK</li>
+</ol>
+<h2 id="工作流程">工作流程</h2>
+<h3 id="解决增量数据">解决增量数据</h3>
+<p>如果想解决增量数据，需要先确认客户端是否可以直传到又拍云。询问客户端的同学得知，目前客户端没有直传又拍云的逻辑。暂时认为又拍云的增量数据都是服务端产生的。</p>
+<p>阅读服务端的代码得知：又拍云上的数据主要为我们用户产生数据的备份，同时还有一些聊天产生的图片，语音，视频。</p>
+<p>以下需要对各个增量部分进行替换，修改为上传到腾讯云。在返回又拍云URL的时候，判断资源产生时间，是否需要替换为腾讯云的URL。</p>
+<h3 id="解决存量数据">解决存量数据</h3>
+<p>又拍云的SDK可以得到存储桶中的资源URL列表，只需要使用腾讯云提供的工具，即可直接同步到腾讯云。</p>
 <blockquote>
-<p>大部分是工作经验的总结。其它的想到哪写哪。</p>
+<p>注意：表情和游戏资源在客户端会校验MD5，之前已经迁移过，并调整过Config文件。在资源URL列表中，需要剔除这些资源。否则可能导致MD5校验不通过。</p>
 </blockquote>
+<h3 id="客户端使用腾讯云sdk">客户端使用腾讯云SDK</h3>
+<p>不可以直接把腾讯云的secretId和secretKey存储在客户端，需要客户端请求服务器，取到一个有限制的凭证，上传。不过腾讯云在上传成功后没有回调服务器（或者是我没有发现），所以仍旧只用作备份资源的过程。</p>
 
             </div>
             
