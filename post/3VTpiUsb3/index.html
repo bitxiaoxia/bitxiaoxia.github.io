@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>GrayLog REST API 使用 | 学海拾遗</title>
+<meta name="description" content="工作生活中偶有所得，随手记下。">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="C:/Users/小夏/Documents/Gridea/output/favicon.ico?v=1567161291303">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="C:/Users/小夏/Documents/Gridea/output/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="C:/Users/小夏/Documents/Gridea/output">
+        <img src="C:/Users/小夏/Documents/Gridea/output/images/avatar.png?v=1567161291303" class="site-logo">
+        <h1 class="site-title">学海拾遗</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="C:/Users/小夏/Documents/Gridea/output/index.html" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="C:/Users/小夏/Documents/Gridea/output/archives/index.html" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="C:/Users/小夏/Documents/Gridea/output/tags/index.html" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="C:/Users/小夏/Documents/Gridea/output/post/about//index.html" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      工作生活中偶有所得，随手记下。
+    </div>
+    <div class="site-footer">
+      转载注明出处</p>
+Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="C:/Users/小夏/Documents/Gridea/output/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">GrayLog REST API 使用</h2>
+            <div class="post-date">2019-08-30</div>
+            
+            <div class="post-content">
+              <p>官方文档写的比较简单。把自己的使用经验记录下来，减少之后的重复过程。<br>
+推荐首先阅读一下官方文档，了解一下概念。<br>
+<a href="https://docs.graylog.org/en/3.0/pages/configuration/rest_api.html?highlight=REST">GrayLog REST API 官方使用文档</a></p>
+<!-- more -->
+<p>以下内容，我们默认为读者已经读过了官方文档。</p>
+<h2 id="step-1学会使用graylog-api-browser">Step 1：学会使用GrayLog API Browser</h2>
+<pre><code>To connect to the Graylog REST API with a web browser, just add api/api-browser to your current http_publish_uri setting or use the API browser button on the nodes overview page (System / Nodes in the web interface).
+</code></pre>
+<p>就在你的GrayLog的域名后面加上/api/api-browser就可以了。<br>
+例如你的GrayLog的域名是<code>graylog.xxx.com</code>，那么你可以使用浏览器打开连接<code>graylog.xxx.com/api/api-browser</code>。<br>
+接下来你会看到如下页面：<br>
+<img src="https://docs.graylog.org/en/3.0/_images/use_api_browser.png" alt="API Browser 页面"><br>
+输入账号密码，即可使用该页面进行API的调试了。<br>
+如果需要获取dashbord的数据，在页面中查找dashbord，得到对应的接口名称。如果需要直接search数据，页面中查找search即可。<br>
+目前我用的比较简单，只用到了<code>Search/Absolute</code>功能。</p>
+<h2 id="step-2-创建access-token">Step 2: 创建Access Token</h2>
+<p>在 <code>System / Authentication</code>中找到对应用户。选择<code>Edit tokens</code>。<br>
+<img src="C:/Users/%E5%B0%8F%E5%A4%8F/Documents/Gridea/output/post-images/1567154319371.png" alt=""></p>
+<p>输入一个token的名称（只是备注，后续不使用），创建后即可复制使用。<br>
+<img src="C:/Users/%E5%B0%8F%E5%A4%8F/Documents/Gridea/output/post-images/1567154382515.png" alt=""></p>
+<p>在REST API中，username是创建的token值，password直接使用<code>token</code>这五个字母。如：<code>o7sxxxxuh75xxxxn19b4l955xxxx348e072xxxx6lddxxxa4qrh:token</code></p>
+<p>ps: AccessToken是长久有效的，还有一个session Token是会话有效，需要通过REST API请求，不在此赘述了。</p>
+<h2 id="step-3-正式使用rest-api">Step 3: 正式使用REST API</h2>
+<p><strong>你可以在网页上按F12调试，看下实际每个操作对应的是哪个接口。</strong></p>
+<p>以下我会给出一个使用示例。<br>
+需要查询北京时间 2019-08-29这一天，绝对时间的数据。<br>
+我们使用API Browser找到 <code>Search/Absolute</code>这一项<br>
+<img src="C:/Users/%E5%B0%8F%E5%A4%8F/Documents/Gridea/output/post-images/1567156246719.png" alt=""><br>
+可以看到下面有几个接口，如果你已经能够简单的使用GrayLog的网页，这些接口的实际意义应该都可以自己理解。<br>
+我们需要对特定数据集合中的<code>props_id</code>字段进行统计。在网页上对应Quick values操作，REST API中对应<code>GET /search/universal/absolute/terms</code>接口。<br>
+<img src="C:/Users/%E5%B0%8F%E5%A4%8F/Documents/Gridea/output/post-images/1567156409960.png" alt=""><br>
+可以看到我们需要的参数：</p>
+<blockquote>
+<p>field 统计字段<br>
+query 查询语句<br>
+stacked_fields 非必传，如果传了，会把结果按照该字段去重计数。<br>
+from 开始时间，使用UTC 通用标准<br>
+to 截止时间，使用UTC 通用标准<br>
+ps ：北京+8时区，时间0点，对应0时区前一天的16点。<br>
+2019-08-29T00:00:00.000+08:00 = 2019-08-28T16:00:00.000Z</p>
+</blockquote>
+<p>配置完成后点try it out 按钮，调试，等到requestUrl和response Body。</p>
+<pre><code>{
+  &quot;time&quot;: 15,
+  &quot;terms&quot;: {
+    &quot;1&quot;: 46907,
+    &quot;2&quot;: 7711,
+    &quot;3&quot;: 6354,
+    &quot;4&quot;: 6241,
+    &quot;5&quot;: 8538
+  },
+...,
+  &quot;missing&quot;: 0, 
+  &quot;other&quot;: 0,
+  &quot;total&quot;: 75751
+}
+</code></pre>
+<p>注意在自己构造请求时，header里面需要添加以下参数：</p>
+<pre><code>Content-Type: application/json
+Accept: application/json
+X-Requested-By: [这里填你对自己客户端的命名]
+Authorization: [Basic: Base64.encode(&quot;[yourToken]:token&quot;).toString]
+</code></pre>
+<blockquote>
+<p>注意鉴权的算法，如果你的token是 x123xx。<br>
+先对字符串 x123xx:token 进行Base64编码。<br>
+得到：eDEyM3h4OnRva2Vu<br>
+那么你的Authorization字段就是<br>
+Basic: eDEyM3h4OnRva2Vu<br>
+注意Basic: 后面有个英文的空格</p>
+</blockquote>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="C:/Users/小夏/Documents/Gridea/output/tag/sSb0-0u20/index.html" class="tag">
+                    log
+                  </a>
+                
+                  <a href="C:/Users/小夏/Documents/Gridea/output/tag/fEeaCQ9plp/index.html" class="tag">
+                    服务器
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="C:/Users/小夏/Documents/Gridea/output/post/WuN-tKRP/index.html">
+                  <h3 class="post-title">
+                    如何巧妙地提问（转载）
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>
