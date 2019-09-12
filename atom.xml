@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://bitxiaoxia.github.io</id>
     <title>学海拾遗</title>
-    <updated>2019-09-12T03:06:29.502Z</updated>
+    <updated>2019-09-12T08:38:17.493Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://bitxiaoxia.github.io"/>
     <link rel="self" href="https://bitxiaoxia.github.io/atom.xml"/>
@@ -10,6 +10,17 @@
     <logo>https://bitxiaoxia.github.io/images/avatar.png</logo>
     <icon>https://bitxiaoxia.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, 学海拾遗</rights>
+    <entry>
+        <title type="html"><![CDATA[IDC迁云相关工作]]></title>
+        <id>https://bitxiaoxia.github.io/post/2I-u_ZFwX</id>
+        <link href="https://bitxiaoxia.github.io/post/2I-u_ZFwX">
+        </link>
+        <updated>2019-09-12T06:56:57.000Z</updated>
+        <summary type="html"><![CDATA[<p>这篇文章是对我们服务上云的过程的总结。由于我们这边用的是腾讯云，如果读者选用的云服务商不是腾讯云的话，具体的工具可能不太一样，但是流程应该是相同的。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>这篇文章是对我们服务上云的过程的总结。由于我们这边用的是腾讯云，如果读者选用的云服务商不是腾讯云的话，具体的工具可能不太一样，但是流程应该是相同的。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[QQ互联安卓测试包问题]]></title>
         <id>https://bitxiaoxia.github.io/post/NaSa0FdXQ</id>
@@ -135,23 +146,6 @@
 <li>安装必要软件</li>
 <li>...</li>
 </ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[mysqldump命令备份数据]]></title>
-        <id>https://bitxiaoxia.github.io/post/mysqldump-ming-ling-bei-fen-shu-ju</id>
-        <link href="https://bitxiaoxia.github.io/post/mysqldump-ming-ling-bei-fen-shu-ju">
-        </link>
-        <updated>2019-07-25T08:34:43.000Z</updated>
-        <summary type="html"><![CDATA[<p>备份MySQL数据库相关命令总结，可以直接看常用命令。</p>
-<blockquote>
-<p>mysqldump --no-data --opt --skip-lock-tables -B [db_name] --table [table_name] -u [user]　-p [password]　&gt;　[db_table_create].sql</p>
-</blockquote>
-]]></summary>
-        <content type="html"><![CDATA[<p>备份MySQL数据库相关命令总结，可以直接看常用命令。</p>
-<blockquote>
-<p>mysqldump --no-data --opt --skip-lock-tables -B [db_name] --table [table_name] -u [user]　-p [password]　&gt;　[db_table_create].sql</p>
-</blockquote>
 ]]></content>
     </entry>
 </feed>
