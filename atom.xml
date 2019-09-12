@@ -1,19 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>C:/Users/小夏/Documents/Gridea/output</id>
+    <id>https://bitxiaoxia.github.io</id>
     <title>学海拾遗</title>
-    <updated>2019-08-30T10:44:08.887Z</updated>
+    <updated>2019-09-12T03:02:58.052Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="C:/Users/小夏/Documents/Gridea/output"/>
-    <link rel="self" href="C:/Users/小夏/Documents/Gridea/output/atom.xml"/>
+    <link rel="alternate" href="https://bitxiaoxia.github.io"/>
+    <link rel="self" href="https://bitxiaoxia.github.io/atom.xml"/>
     <subtitle>工作生活中偶有所得，随手记下。</subtitle>
-    <logo>C:/Users/小夏/Documents/Gridea/output/images/avatar.png</logo>
-    <icon>C:/Users/小夏/Documents/Gridea/output/favicon.ico</icon>
+    <logo>https://bitxiaoxia.github.io/images/avatar.png</logo>
+    <icon>https://bitxiaoxia.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, 学海拾遗</rights>
     <entry>
+        <title type="html"><![CDATA[QQ互联安卓测试包问题]]></title>
+        <id>https://bitxiaoxia.github.io/post/WECZ3ftaY1</id>
+        <link href="https://bitxiaoxia.github.io/post/WECZ3ftaY1">
+        </link>
+        <updated>2019-09-12T02:52:46.000Z</updated>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[GrayLog REST API 使用]]></title>
-        <id>C:/Users/小夏/Documents/Gridea/output/post/3VTpiUsb3/index.html</id>
-        <link href="C:/Users/小夏/Documents/Gridea/output/post/3VTpiUsb3/index.html">
+        <id>https://bitxiaoxia.github.io/post/3VTpiUsb3</id>
+        <link href="https://bitxiaoxia.github.io/post/3VTpiUsb3">
         </link>
         <updated>2019-08-30T08:16:35.000Z</updated>
         <summary type="html"><![CDATA[<p>官方文档写的比较简单。把自己的使用经验记录下来，减少之后的重复过程。<br>
@@ -27,8 +34,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[如何巧妙地提问（转载）]]></title>
-        <id>C:/Users/小夏/Documents/Gridea/output/post/WuN-tKRP/index.html</id>
-        <link href="C:/Users/小夏/Documents/Gridea/output/post/WuN-tKRP/index.html">
+        <id>https://bitxiaoxia.github.io/post/WuN-tKRP</id>
+        <link href="https://bitxiaoxia.github.io/post/WuN-tKRP">
         </link>
         <updated>2019-08-23T07:02:01.000Z</updated>
         <summary type="html"><![CDATA[<p>我认为提问确实是项艺术，有的人提出的问题会让人想要去解决，而有的人不停提出的问题只会消磨别人的耐性。本文转载自<a href="https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way"><strong>github</strong></a>，记录下提问的方法，时时自省，避免成为一个问题制造者。</p>
@@ -42,8 +49,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[Linux 大文件分割与合并]]></title>
-        <id>C:/Users/小夏/Documents/Gridea/output/post/AouxlYO_g/index.html</id>
-        <link href="C:/Users/小夏/Documents/Gridea/output/post/AouxlYO_g/index.html">
+        <id>https://bitxiaoxia.github.io/post/AouxlYO_g</id>
+        <link href="https://bitxiaoxia.github.io/post/AouxlYO_g">
         </link>
         <updated>2019-08-20T06:40:56.000Z</updated>
         <summary type="html"><![CDATA[<p>使用split命令进行文件分割</p>
@@ -55,8 +62,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[cronolog安装及使用]]></title>
-        <id>C:/Users/小夏/Documents/Gridea/output/post/GmPHzj1yy/index.html</id>
-        <link href="C:/Users/小夏/Documents/Gridea/output/post/GmPHzj1yy/index.html">
+        <id>https://bitxiaoxia.github.io/post/GmPHzj1yy</id>
+        <link href="https://bitxiaoxia.github.io/post/GmPHzj1yy">
         </link>
         <updated>2019-07-26T07:30:57.000Z</updated>
         <summary type="html"><![CDATA[<p>cronolog在写文件的时候，会获取文件句柄，当文件大于2^32-1的时候，没法取到，导致没法继续写。所以生成环境中弃用。建议使用logrotate</p>
@@ -66,8 +73,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[logrotate的使用]]></title>
-        <id>C:/Users/小夏/Documents/Gridea/output/post/9OkQ33VIy/index.html</id>
-        <link href="C:/Users/小夏/Documents/Gridea/output/post/9OkQ33VIy/index.html">
+        <id>https://bitxiaoxia.github.io/post/9OkQ33VIy</id>
+        <link href="https://bitxiaoxia.github.io/post/9OkQ33VIy">
         </link>
         <updated>2019-07-26T07:28:30.000Z</updated>
         <summary type="html"><![CDATA[<p>logrotate是linux自带的日志管理工具。配置文件是/etc/logrotate.conf。</p>
@@ -77,8 +84,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[ CentOS 7服务器初始化(三)]]></title>
-        <id>C:/Users/小夏/Documents/Gridea/output/post/PiBTtRfva/index.html</id>
-        <link href="C:/Users/小夏/Documents/Gridea/output/post/PiBTtRfva/index.html">
+        <id>https://bitxiaoxia.github.io/post/PiBTtRfva</id>
+        <link href="https://bitxiaoxia.github.io/post/PiBTtRfva">
         </link>
         <updated>2019-07-26T07:16:17.000Z</updated>
         <summary type="html"><![CDATA[<p>常用的性能调优。可以根据实际情况选用。</p>
@@ -88,8 +95,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[CentOS 7服务器初始化(二)]]></title>
-        <id>C:/Users/小夏/Documents/Gridea/output/post/1f7FnMbXR/index.html</id>
-        <link href="C:/Users/小夏/Documents/Gridea/output/post/1f7FnMbXR/index.html">
+        <id>https://bitxiaoxia.github.io/post/1f7FnMbXR</id>
+        <link href="https://bitxiaoxia.github.io/post/1f7FnMbXR">
         </link>
         <updated>2019-07-26T06:52:28.000Z</updated>
         <summary type="html"><![CDATA[<ul>
@@ -111,8 +118,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[CentOS 7服务器初始化(一)]]></title>
-        <id>C:/Users/小夏/Documents/Gridea/output/post/GDtsBi00c/index.html</id>
-        <link href="C:/Users/小夏/Documents/Gridea/output/post/GDtsBi00c/index.html">
+        <id>https://bitxiaoxia.github.io/post/GDtsBi00c</id>
+        <link href="https://bitxiaoxia.github.io/post/GDtsBi00c">
         </link>
         <updated>2019-07-26T02:18:26.000Z</updated>
         <summary type="html"><![CDATA[<ul>
@@ -132,8 +139,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[mysqldump命令备份数据]]></title>
-        <id>C:/Users/小夏/Documents/Gridea/output/post/mysqldump-ming-ling-bei-fen-shu-ju/index.html</id>
-        <link href="C:/Users/小夏/Documents/Gridea/output/post/mysqldump-ming-ling-bei-fen-shu-ju/index.html">
+        <id>https://bitxiaoxia.github.io/post/mysqldump-ming-ling-bei-fen-shu-ju</id>
+        <link href="https://bitxiaoxia.github.io/post/mysqldump-ming-ling-bei-fen-shu-ju">
         </link>
         <updated>2019-07-25T08:34:43.000Z</updated>
         <summary type="html"><![CDATA[<p>备份MySQL数据库相关命令总结，可以直接看常用命令。</p>
@@ -145,17 +152,6 @@
 <blockquote>
 <p>mysqldump --no-data --opt --skip-lock-tables -B [db_name] --table [table_name] -u [user]　-p [password]　&gt;　[db_table_create].sql</p>
 </blockquote>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[网址收录]]></title>
-        <id>C:/Users/小夏/Documents/Gridea/output/post/wang-zhi-shou-lu/index.html</id>
-        <link href="C:/Users/小夏/Documents/Gridea/output/post/wang-zhi-shou-lu/index.html">
-        </link>
-        <updated>2019-07-25T08:00:01.000Z</updated>
-        <summary type="html"><![CDATA[<p>一些常用的网站</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>一些常用的网站</p>
 ]]></content>
     </entry>
 </feed>

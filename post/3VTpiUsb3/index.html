@@ -9,9 +9,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="C:/Users/小夏/Documents/Gridea/output/favicon.ico?v=1567161291303">
+<link rel="shortcut icon" href="https://bitxiaoxia.github.io/favicon.ico?v=1568257374361">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
-<link rel="stylesheet" href="C:/Users/小夏/Documents/Gridea/output/styles/main.css">
+<link rel="stylesheet" href="https://bitxiaoxia.github.io/styles/main.css">
 
 
 
@@ -29,8 +29,8 @@
       <div class="sidebar" :class="{ 'full-height': menuVisible }">
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
-      <a class="site-title-container" href="C:/Users/小夏/Documents/Gridea/output">
-        <img src="C:/Users/小夏/Documents/Gridea/output/images/avatar.png?v=1567161291303" class="site-logo">
+      <a class="site-title-container" href="https://bitxiaoxia.github.io">
+        <img src="https://bitxiaoxia.github.io/images/avatar.png?v=1568257374361" class="site-logo">
         <h1 class="site-title">学海拾遗</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -40,25 +40,25 @@
     <div>
       
         
-          <a href="C:/Users/小夏/Documents/Gridea/output/index.html" class="site-nav">
+          <a href="https://bitxiaoxia.github.io" class="site-nav">
             首页
           </a>
         
       
         
-          <a href="C:/Users/小夏/Documents/Gridea/output/archives/index.html" class="site-nav">
+          <a href="https://bitxiaoxia.github.io/archives" class="site-nav">
             归档
           </a>
         
       
         
-          <a href="C:/Users/小夏/Documents/Gridea/output/tags/index.html" class="site-nav">
+          <a href="https://bitxiaoxia.github.io/tags" class="site-nav">
             标签
           </a>
         
       
         
-          <a href="C:/Users/小夏/Documents/Gridea/output/post/about//index.html" class="site-nav">
+          <a href="https://bitxiaoxia.github.io/post/about/" class="site-nav">
             关于
           </a>
         
@@ -84,7 +84,7 @@
     </div>
     <div class="site-footer">
       转载注明出处</p>
-Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="C:/Users/小夏/Documents/Gridea/output/atom.xml" target="_blank">RSS</a>
+Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://bitxiaoxia.github.io/atom.xml" target="_blank">RSS</a>
     </div>
   </div>
 </div>
@@ -114,9 +114,9 @@ Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea<
 目前我用的比较简单，只用到了<code>Search/Absolute</code>功能。</p>
 <h2 id="step-2-创建access-token">Step 2: 创建Access Token</h2>
 <p>在 <code>System / Authentication</code>中找到对应用户。选择<code>Edit tokens</code>。<br>
-<img src="C:/Users/%E5%B0%8F%E5%A4%8F/Documents/Gridea/output/post-images/1567154319371.png" alt=""></p>
+<img src="https://bitxiaoxia.github.io/post-images/1567154319371.png" alt=""></p>
 <p>输入一个token的名称（只是备注，后续不使用），创建后即可复制使用。<br>
-<img src="C:/Users/%E5%B0%8F%E5%A4%8F/Documents/Gridea/output/post-images/1567154382515.png" alt=""></p>
+<img src="https://bitxiaoxia.github.io/post-images/1567154382515.png" alt=""></p>
 <p>在REST API中，username是创建的token值，password直接使用<code>token</code>这五个字母。如：<code>o7sxxxxuh75xxxxn19b4l955xxxx348e072xxxx6lddxxxa4qrh:token</code></p>
 <p>ps: AccessToken是长久有效的，还有一个session Token是会话有效，需要通过REST API请求，不在此赘述了。</p>
 <h2 id="step-3-正式使用rest-api">Step 3: 正式使用REST API</h2>
@@ -124,10 +124,10 @@ Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea<
 <p>以下我会给出一个使用示例。<br>
 需要查询北京时间 2019-08-29这一天，绝对时间的数据。<br>
 我们使用API Browser找到 <code>Search/Absolute</code>这一项<br>
-<img src="C:/Users/%E5%B0%8F%E5%A4%8F/Documents/Gridea/output/post-images/1567156246719.png" alt=""><br>
+<img src="https://bitxiaoxia.github.io/post-images/1567156246719.png" alt=""><br>
 可以看到下面有几个接口，如果你已经能够简单的使用GrayLog的网页，这些接口的实际意义应该都可以自己理解。<br>
 我们需要对特定数据集合中的<code>props_id</code>字段进行统计。在网页上对应Quick values操作，REST API中对应<code>GET /search/universal/absolute/terms</code>接口。<br>
-<img src="C:/Users/%E5%B0%8F%E5%A4%8F/Documents/Gridea/output/post-images/1567156409960.png" alt=""><br>
+<img src="https://bitxiaoxia.github.io/post-images/1567156409960.png" alt=""><br>
 可以看到我们需要的参数：</p>
 <blockquote>
 <p>field 统计字段<br>
@@ -173,11 +173,11 @@ Basic: eDEyM3h4OnRva2Vu<br>
             
               <div class="tag-container">
                 
-                  <a href="C:/Users/小夏/Documents/Gridea/output/tag/sSb0-0u20/index.html" class="tag">
+                  <a href="https://bitxiaoxia.github.io/tag/sSb0-0u20" class="tag">
                     log
                   </a>
                 
-                  <a href="C:/Users/小夏/Documents/Gridea/output/tag/fEeaCQ9plp/index.html" class="tag">
+                  <a href="https://bitxiaoxia.github.io/tag/fEeaCQ9plp" class="tag">
                     服务器
                   </a>
                 
@@ -186,7 +186,7 @@ Basic: eDEyM3h4OnRva2Vu<br>
             
               <div class="next-post">
                 <div class="next">下一篇</div>
-                <a href="C:/Users/小夏/Documents/Gridea/output/post/WuN-tKRP/index.html">
+                <a href="https://bitxiaoxia.github.io/post/WuN-tKRP">
                   <h3 class="post-title">
                     如何巧妙地提问（转载）
                   </h3>
