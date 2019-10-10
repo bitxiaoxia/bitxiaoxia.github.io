@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://bitxiaoxia.github.io/favicon.ico?v=1570695203834">
+<link rel="shortcut icon" href="https://bitxiaoxia.github.io/favicon.ico?v=1570695592377">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://bitxiaoxia.github.io/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://bitxiaoxia.github.io">
-        <img src="https://bitxiaoxia.github.io/images/avatar.png?v=1570695203834" class="site-logo">
+        <img src="https://bitxiaoxia.github.io/images/avatar.png?v=1570695592377" class="site-logo">
         <h1 class="site-title">学海拾遗</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -118,23 +118,29 @@ ExecutorService executorService = new ThreadPoolExecutor(1024, 1024, 8, TimeUnit
 之前测试时1024线程的任务，不使用实际执行，而采用Thread.sleep(10000)，耗时有明显提升，只用了20min完成了96w+任务。</p>
 <p>区别在这里</p>
 <pre><code>executorService.execute(() -&gt; {
-    ...
+    ...//前置任务
     //try {
     //	Thread.sleep(1000);
     //} catch (Exception e) {
     //	e.printStackTrace();
     //}
 	messageService.sendRecallMessage(mpOpenId, lastingDays);
-    ...
+    ...//后置任务
     });
 </code></pre>
-<p>正常业务使用的<code>sendRecallMessage()</code>方法，是像腾讯发起一个HTTP请求。按照之前的预估，1s内可以完成。使用<code>Thread.sleep(10000)</code>方法模拟请求，，实际耗时却有很大区别。</p>
+<p>正常业务使用的<code>sendRecallMessage()</code>方法，是向腾讯发起一个HTTP请求。按照之前的预估，1s内可以完成。使用<code>Thread.sleep(10000)</code>方法模拟请求，，实际耗时却有很大区别。</p>
 <ol>
 <li>32线程sendRecallMessage,执行572711任务，时间为155min</li>
 <li>1024线程sendRecallMessage,执行547002任务，时间为138min</li>
 <li>1024线程Thread.sleep(10000),执行96w+任务，时间为20min</li>
 </ol>
-<p>这里的问题暂时不太能够想明白，感觉应该是因为在调用HTTP请求时，就算在等待接口返回，仍在占用CPU资源，而Thread.sleep则会完全放开资源。</p>
+<p>这里的问题暂时不太能够想明白，按照我的理解应该是因为在调用HTTP请求时，就算在等待接口返回，仍在占用CPU资源，CPU不会调度到其他线程上执行任务，而Thread.sleep则会完全放开CPU资源，直到sleep时间结束，CPU才会继续执行任务。<br>
+我想要提问的是：</p>
+<ol>
+<li>线程池的核心线程数应该和CPU核数有关，8核的机器，一般开多少线程合适呢？</li>
+<li>目前有个需求是需要在30min内完成约500w个任务，是否只能拆机器运行？</li>
+<li>如果需要多台机器运行，使用生产者消费者模式可以避免进程间通信，比较简单的实现，是否有更好的方法呢？</li>
+</ol>
 <h1 id="附录">附录</h1>
 <blockquote>
 <p>32线程thread30的部分任务完成时间</p>
