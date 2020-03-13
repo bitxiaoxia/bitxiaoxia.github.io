@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>为什么排序后的数组要比未排序数组运行快3倍以上？ | 学海拾遗</title>
+<meta name="description" content="工作生活中偶有所得，随手记下。">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://bitxiaoxia.github.io/favicon.ico?v=1584092227577">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://bitxiaoxia.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://bitxiaoxia.github.io">
+        <img src="https://bitxiaoxia.github.io/images/avatar.png?v=1584092227577" class="site-logo">
+        <h1 class="site-title">学海拾遗</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="https://bitxiaoxia.github.io" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="https://bitxiaoxia.github.io/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="https://bitxiaoxia.github.io/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="https://bitxiaoxia.github.io/post/about/" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      工作生活中偶有所得，随手记下。
+    </div>
+    <div class="site-footer">
+      转载注明出处</p>
+Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://bitxiaoxia.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">为什么排序后的数组要比未排序数组运行快3倍以上？</h2>
+            <div class="post-date">2020-03-13</div>
+            
+            <div class="post-content">
+              <p>原因：分支预测器。英文名叫做 Branch predictor，是一种数字电路，在分支指令执行结束之前猜测哪一路分支将会被运行，以提高处理器的指令流水线的性能。使用分支预测器的目的，在于改善指令管线化的流程。—— 引自维基百科<br>
+<a href="https://stackoverflow.com/questions/11227809/why-is-processing-a-sorted-array-faster-than-processing-an-unsorted-array">Stack Overflow问题原址</a></p>
+<!-- more -->
+<p><strong>先贴一段代码。</strong><br>
+<code>Arrays.sort(data);</code>这行如果被注释掉，运算时间会大幅提升。</p>
+<pre><code>import java.util.Arrays;
+import java.util.Random;
+
+public class Main
+{
+    public static void main(String[] args)
+    {
+        // Generate data
+        int arraySize = 32768;
+        int data[] = new int[arraySize];
+
+        Random rnd = new Random(0);
+        for (int c = 0; c &lt; arraySize; ++c)
+            data[c] = rnd.nextInt() % 256;
+
+        // !!! With this, the next loop runs faster
+        Arrays.sort(data);
+
+        // Test
+        long start = System.nanoTime();
+        long sum = 0;
+
+        for (int i = 0; i &lt; 100000; ++i)
+        {
+            // Primary loop
+            for (int c = 0; c &lt; arraySize; ++c)
+            {
+                if (data[c] &gt;= 128)
+                    sum += data[c];
+            }
+        }
+
+        System.out.println((System.nanoTime() - start) / 1000000000.0);
+        System.out.println(&quot;sum = &quot; + sum);
+    }
+}
+</code></pre>
+<p>理论上，排序与否并不会影响运算速度。那么，为什么排序后的数组要比未排序数组运行快？</p>
+<p><strong>Stack Overflow高赞答案提到了分支预测器。</strong></p>
+<p>这个分支预测器，跟在无线电还未普及的 19 世纪的铁路交叉口的扳道工很相似，假如你就是一个搬道工，当听到火车快来了的时候，你无法猜测它应该朝哪个方向走。于是你叫停了火车，上前去问火车司机该朝哪个方向走，以便你能正确地切换铁轨。</p>
+<p>要知道，火车是非常庞大的，切急速行驶时有巨大的惯性。为了完成上述停车-问询-切轨的一系列动作，火车需耗费大量时间减速，停车，重新开启。</p>
+<p>既然上述过程非常耗时，那是否有更好的方法？当然有！当火车即将行驶过来前，你可以猜测火车该朝哪个方向走。</p>
+<p>如果猜对了，它直接通过，继续前行。</p>
+<p>如果猜错了，车头将停止，倒回去，你将铁轨扳至反方向，火车重新启动，驶过道口。</p>
+<p>如果你不幸每次都猜错了，那么火车将耗费大量时间，停车-倒回-重启。</p>
+<p>如果你很幸运，每次都猜对了呢？火车将从不停车，持续前行！</p>
+<p>我相信谁都不会一直都有好运，那有没有好的方法使得每次猜对的几率变大呢？是有的，可以通过小旗子来作为信号判断火车的走向。</p>
+<p><strong>给了我们解释，原因在于分支跳转指令-if语句。</strong></p>
+<pre><code>if (data[c] &gt;= 128)
+    sum += data[c];
+</code></pre>
+<p>一般来说，对于处理器而言，只能利用历史运行记录来进行分析。</p>
+<p>那么，对于有序数组,我们很容易判断下一次是True还是false。</p>
+<pre><code>T = branch taken
+N = branch not taken
+
+data[] = 0, 1, 2, 3, 4, ... 126, 127, 128, 129, 130, ... 250, 251, 252, ...
+branch = N  N  N  N  N  ...   N    N    T    T    T  ...   T    T    T  ...
+
+       = NNNNNNNNNNNN ... NNNNNNNTTTTTTTTT ... TTTTTTTTTT  (easy to predict)
+</code></pre>
+<p>而对于无序数组，由于完全随机，我们几乎无法预测下一次。</p>
+<pre><code>data[] = 226, 185, 125, 158, 198, 144, 217, 79, 202, 118,  14, 150, 177, 182, 133, ...
+branch =   T,   T,   N,   T,   T,   T,   T,  N,   T,   N,   N,   T,   T,   T,   N  ...
+
+       = TTNTTTTNTNNTTTN ...   (completely random - hard to predict)
+</code></pre>
+<p><strong>那么我们应该如何做优化呢？</strong><br>
+可以使用位运算来替代if语句。</p>
+<pre><code>if (data[c] &gt;= 128)
+    sum += data[c];
+</code></pre>
+<p>替换为</p>
+<pre><code>//如果data[c]-128&gt;0,t=0;否则t=Integer.Min
+//t的二进制情况：00....00 或 11....111
+int t = (data[c] - 128) &gt;&gt; 31;
+//sum+=0或者sum+=data[c]
+sum += ~t &amp; data[c];
+</code></pre>
+<p><strong>以下为各项的运算时间</strong><br>
+在我的i3小破本上：<br>
+1.不排序直接运算：14.98s<br>
+2.排序运算：5.98s<br>
+3.不排序位运算：5.24s<br>
+4.排序位运算：5.288s</p>
+<p><strong>ps:</strong><br>
+更多位运算可以参考：<br>
+<a href="http://graphics.stanford.edu/~seander/bithacks.html">Bit Twiddling Hacks</a></p>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://bitxiaoxia.github.io/post/2I-u_ZFwX">
+                  <h3 class="post-title">
+                    IDC迁云相关工作
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>
