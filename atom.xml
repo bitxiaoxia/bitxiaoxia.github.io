@@ -2,18 +2,17 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://bitxiaoxia.github.io</id>
     <title>学海拾遗</title>
-    <updated>2020-03-13T09:42:25.788Z</updated>
+    <updated>2020-03-26T07:12:55.880Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://bitxiaoxia.github.io"/>
     <link rel="self" href="https://bitxiaoxia.github.io/atom.xml"/>
-    <subtitle>工作生活中偶有所得，随手记下。</subtitle>
     <logo>https://bitxiaoxia.github.io/images/avatar.png</logo>
     <icon>https://bitxiaoxia.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 学海拾遗</rights>
     <entry>
         <title type="html"><![CDATA[为什么排序后的数组要比未排序数组运行快3倍以上？]]></title>
-        <id>https://bitxiaoxia.github.io/post/rgFrCcnFL</id>
-        <link href="https://bitxiaoxia.github.io/post/rgFrCcnFL">
+        <id>https://bitxiaoxia.github.io/post/rgFrCcnFL/</id>
+        <link href="https://bitxiaoxia.github.io/post/rgFrCcnFL/">
         </link>
         <updated>2020-03-13T08:59:39.000Z</updated>
         <summary type="html"><![CDATA[<p>原因：分支预测器。英文名叫做 Branch predictor，是一种数字电路，在分支指令执行结束之前猜测哪一路分支将会被运行，以提高处理器的指令流水线的性能。使用分支预测器的目的，在于改善指令管线化的流程。—— 引自维基百科<br>
@@ -25,8 +24,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[IDC迁云相关工作]]></title>
-        <id>https://bitxiaoxia.github.io/post/2I-u_ZFwX</id>
-        <link href="https://bitxiaoxia.github.io/post/2I-u_ZFwX">
+        <id>https://bitxiaoxia.github.io/post/2I-u_ZFwX/</id>
+        <link href="https://bitxiaoxia.github.io/post/2I-u_ZFwX/">
         </link>
         <updated>2019-09-12T06:56:57.000Z</updated>
         <summary type="html"><![CDATA[<p>这篇文章是对我们服务上云的过程的总结。由于我们这边用的是腾讯云，如果读者选用的云服务商不是腾讯云的话，具体的工具可能不太一样，但是流程应该是相同的。</p>
@@ -36,8 +35,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[GrayLog REST API 使用]]></title>
-        <id>https://bitxiaoxia.github.io/post/3VTpiUsb3</id>
-        <link href="https://bitxiaoxia.github.io/post/3VTpiUsb3">
+        <id>https://bitxiaoxia.github.io/post/3VTpiUsb3/</id>
+        <link href="https://bitxiaoxia.github.io/post/3VTpiUsb3/">
         </link>
         <updated>2019-08-30T08:16:35.000Z</updated>
         <summary type="html"><![CDATA[<p>官方文档写的比较简单。把自己的使用经验记录下来，减少之后的重复过程。<br>
@@ -51,8 +50,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[如何巧妙地提问（转载）]]></title>
-        <id>https://bitxiaoxia.github.io/post/WuN-tKRP</id>
-        <link href="https://bitxiaoxia.github.io/post/WuN-tKRP">
+        <id>https://bitxiaoxia.github.io/post/WuN-tKRP/</id>
+        <link href="https://bitxiaoxia.github.io/post/WuN-tKRP/">
         </link>
         <updated>2019-08-23T07:02:01.000Z</updated>
         <summary type="html"><![CDATA[<p>我认为提问确实是项艺术，有的人提出的问题会让人想要去解决，而有的人不停提出的问题只会消磨别人的耐性。本文转载自<a href="https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way"><strong>github</strong></a>，记录下提问的方法，时时自省，避免成为一个问题制造者。</p>
@@ -66,8 +65,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[Linux 大文件分割与合并]]></title>
-        <id>https://bitxiaoxia.github.io/post/AouxlYO_g</id>
-        <link href="https://bitxiaoxia.github.io/post/AouxlYO_g">
+        <id>https://bitxiaoxia.github.io/post/AouxlYO_g/</id>
+        <link href="https://bitxiaoxia.github.io/post/AouxlYO_g/">
         </link>
         <updated>2019-08-20T06:40:56.000Z</updated>
         <summary type="html"><![CDATA[<p>使用split命令进行文件分割</p>
@@ -79,8 +78,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[cronolog安装及使用]]></title>
-        <id>https://bitxiaoxia.github.io/post/GmPHzj1yy</id>
-        <link href="https://bitxiaoxia.github.io/post/GmPHzj1yy">
+        <id>https://bitxiaoxia.github.io/post/GmPHzj1yy/</id>
+        <link href="https://bitxiaoxia.github.io/post/GmPHzj1yy/">
         </link>
         <updated>2019-07-26T07:30:57.000Z</updated>
         <summary type="html"><![CDATA[<p>cronolog在写文件的时候，会获取文件句柄，当文件大于2^32-1的时候，没法取到，导致没法继续写。所以生成环境中弃用。建议使用logrotate</p>
@@ -90,8 +89,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[logrotate的使用]]></title>
-        <id>https://bitxiaoxia.github.io/post/9OkQ33VIy</id>
-        <link href="https://bitxiaoxia.github.io/post/9OkQ33VIy">
+        <id>https://bitxiaoxia.github.io/post/9OkQ33VIy/</id>
+        <link href="https://bitxiaoxia.github.io/post/9OkQ33VIy/">
         </link>
         <updated>2019-07-26T07:28:30.000Z</updated>
         <summary type="html"><![CDATA[<p>logrotate是linux自带的日志管理工具。配置文件是/etc/logrotate.conf。</p>
@@ -101,8 +100,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[ CentOS 7服务器初始化(三)]]></title>
-        <id>https://bitxiaoxia.github.io/post/PiBTtRfva</id>
-        <link href="https://bitxiaoxia.github.io/post/PiBTtRfva">
+        <id>https://bitxiaoxia.github.io/post/PiBTtRfva/</id>
+        <link href="https://bitxiaoxia.github.io/post/PiBTtRfva/">
         </link>
         <updated>2019-07-26T07:16:17.000Z</updated>
         <summary type="html"><![CDATA[<p>常用的性能调优。可以根据实际情况选用。</p>
@@ -112,8 +111,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[CentOS 7服务器初始化(二)]]></title>
-        <id>https://bitxiaoxia.github.io/post/1f7FnMbXR</id>
-        <link href="https://bitxiaoxia.github.io/post/1f7FnMbXR">
+        <id>https://bitxiaoxia.github.io/post/1f7FnMbXR/</id>
+        <link href="https://bitxiaoxia.github.io/post/1f7FnMbXR/">
         </link>
         <updated>2019-07-26T06:52:28.000Z</updated>
         <summary type="html"><![CDATA[<ul>
@@ -135,8 +134,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[CentOS 7服务器初始化(一)]]></title>
-        <id>https://bitxiaoxia.github.io/post/GDtsBi00c</id>
-        <link href="https://bitxiaoxia.github.io/post/GDtsBi00c">
+        <id>https://bitxiaoxia.github.io/post/GDtsBi00c/</id>
+        <link href="https://bitxiaoxia.github.io/post/GDtsBi00c/">
         </link>
         <updated>2019-07-26T02:18:26.000Z</updated>
         <summary type="html"><![CDATA[<ul>
