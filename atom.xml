@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://bitxiaoxia.github.io</id>
+    <title>学海拾遗</title>
+    <updated>2022-09-28T03:47:53.990Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://bitxiaoxia.github.io"/>
+    <link rel="self" href="https://bitxiaoxia.github.io/atom.xml"/>
+    <logo>https://bitxiaoxia.github.io/images/avatar.png</logo>
+    <icon>https://bitxiaoxia.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2022, 学海拾遗</rights>
+    <entry>
+        <title type="html"><![CDATA[敏捷实践思考与敏捷学习心得分享]]></title>
+        <id>https://bitxiaoxia.github.io/post/BOVnoUfZ8/</id>
+        <link href="https://bitxiaoxia.github.io/post/BOVnoUfZ8/">
+        </link>
+        <updated>2022-09-28T03:31:58.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[为什么排序后的数组要比未排序数组运行快3倍以上？]]></title>
+        <id>https://bitxiaoxia.github.io/post/rgFrCcnFL/</id>
+        <link href="https://bitxiaoxia.github.io/post/rgFrCcnFL/">
+        </link>
+        <updated>2020-03-13T08:59:39.000Z</updated>
+        <summary type="html"><![CDATA[<p>原因：分支预测器。英文名叫做 Branch predictor，是一种数字电路，在分支指令执行结束之前猜测哪一路分支将会被运行，以提高处理器的指令流水线的性能。使用分支预测器的目的，在于改善指令管线化的流程。—— 引自维基百科<br>
+<a href="https://stackoverflow.com/questions/11227809/why-is-processing-a-sorted-array-faster-than-processing-an-unsorted-array">Stack Overflow问题原址</a></p>
+]]></summary>
+        <content type="html"><![CDATA[<p>原因：分支预测器。英文名叫做 Branch predictor，是一种数字电路，在分支指令执行结束之前猜测哪一路分支将会被运行，以提高处理器的指令流水线的性能。使用分支预测器的目的，在于改善指令管线化的流程。—— 引自维基百科<br>
+<a href="https://stackoverflow.com/questions/11227809/why-is-processing-a-sorted-array-faster-than-processing-an-unsorted-array">Stack Overflow问题原址</a></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[IDC迁云相关工作]]></title>
+        <id>https://bitxiaoxia.github.io/post/2I-u_ZFwX/</id>
+        <link href="https://bitxiaoxia.github.io/post/2I-u_ZFwX/">
+        </link>
+        <updated>2019-09-12T06:56:57.000Z</updated>
+        <summary type="html"><![CDATA[<p>这篇文章是对我们服务上云的过程的总结。由于我们这边用的是腾讯云，如果读者选用的云服务商不是腾讯云的话，具体的工具可能不太一样，但是流程应该是相同的。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>这篇文章是对我们服务上云的过程的总结。由于我们这边用的是腾讯云，如果读者选用的云服务商不是腾讯云的话，具体的工具可能不太一样，但是流程应该是相同的。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[GrayLog REST API 使用]]></title>
+        <id>https://bitxiaoxia.github.io/post/3VTpiUsb3/</id>
+        <link href="https://bitxiaoxia.github.io/post/3VTpiUsb3/">
+        </link>
+        <updated>2019-08-30T08:16:35.000Z</updated>
+        <summary type="html"><![CDATA[<p>官方文档写的比较简单。把自己的使用经验记录下来，减少之后的重复过程。<br>
+推荐首先阅读一下官方文档，了解一下概念。<br>
+<a href="https://docs.graylog.org/en/3.0/pages/configuration/rest_api.html?highlight=REST">GrayLog REST API 官方使用文档</a></p>
+]]></summary>
+        <content type="html"><![CDATA[<p>官方文档写的比较简单。把自己的使用经验记录下来，减少之后的重复过程。<br>
+推荐首先阅读一下官方文档，了解一下概念。<br>
+<a href="https://docs.graylog.org/en/3.0/pages/configuration/rest_api.html?highlight=REST">GrayLog REST API 官方使用文档</a></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[如何巧妙地提问（转载）]]></title>
+        <id>https://bitxiaoxia.github.io/post/WuN-tKRP/</id>
+        <link href="https://bitxiaoxia.github.io/post/WuN-tKRP/">
+        </link>
+        <updated>2019-08-23T07:02:01.000Z</updated>
+        <summary type="html"><![CDATA[<p>我认为提问确实是项艺术，有的人提出的问题会让人想要去解决，而有的人不停提出的问题只会消磨别人的耐性。本文转载自<a href="https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way"><strong>github</strong></a>，记录下提问的方法，时时自省，避免成为一个问题制造者。</p>
+<p><a href="https://www.oschina.net/translate/smart-questions?cmp">oschina译文</a><br>
+<a href="http://www.catb.org/esr/faqs/smart-questions.html">英文链接</a></p>
+]]></summary>
+        <content type="html"><![CDATA[<p>我认为提问确实是项艺术，有的人提出的问题会让人想要去解决，而有的人不停提出的问题只会消磨别人的耐性。本文转载自<a href="https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way"><strong>github</strong></a>，记录下提问的方法，时时自省，避免成为一个问题制造者。</p>
+<p><a href="https://www.oschina.net/translate/smart-questions?cmp">oschina译文</a><br>
+<a href="http://www.catb.org/esr/faqs/smart-questions.html">英文链接</a></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Linux 大文件分割与合并]]></title>
+        <id>https://bitxiaoxia.github.io/post/AouxlYO_g/</id>
+        <link href="https://bitxiaoxia.github.io/post/AouxlYO_g/">
+        </link>
+        <updated>2019-08-20T06:40:56.000Z</updated>
+        <summary type="html"><![CDATA[<p>使用split命令进行文件分割</p>
+<p>使用cat命令进行文件合并</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>使用split命令进行文件分割</p>
+<p>使用cat命令进行文件合并</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[cronolog安装及使用]]></title>
+        <id>https://bitxiaoxia.github.io/post/GmPHzj1yy/</id>
+        <link href="https://bitxiaoxia.github.io/post/GmPHzj1yy/">
+        </link>
+        <updated>2019-07-26T07:30:57.000Z</updated>
+        <summary type="html"><![CDATA[<p>cronolog在写文件的时候，会获取文件句柄，当文件大于2^32-1的时候，没法取到，导致没法继续写。所以生成环境中弃用。建议使用logrotate</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>cronolog在写文件的时候，会获取文件句柄，当文件大于2^32-1的时候，没法取到，导致没法继续写。所以生成环境中弃用。建议使用logrotate</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[logrotate的使用]]></title>
+        <id>https://bitxiaoxia.github.io/post/9OkQ33VIy/</id>
+        <link href="https://bitxiaoxia.github.io/post/9OkQ33VIy/">
+        </link>
+        <updated>2019-07-26T07:28:30.000Z</updated>
+        <summary type="html"><![CDATA[<p>logrotate是linux自带的日志管理工具。配置文件是/etc/logrotate.conf。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>logrotate是linux自带的日志管理工具。配置文件是/etc/logrotate.conf。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[ CentOS 7服务器初始化(三)]]></title>
+        <id>https://bitxiaoxia.github.io/post/PiBTtRfva/</id>
+        <link href="https://bitxiaoxia.github.io/post/PiBTtRfva/">
+        </link>
+        <updated>2019-07-26T07:16:17.000Z</updated>
+        <summary type="html"><![CDATA[<p>常用的性能调优。可以根据实际情况选用。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>常用的性能调优。可以根据实际情况选用。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[CentOS 7服务器初始化(二)]]></title>
+        <id>https://bitxiaoxia.github.io/post/1f7FnMbXR/</id>
+        <link href="https://bitxiaoxia.github.io/post/1f7FnMbXR/">
+        </link>
+        <updated>2019-07-26T06:52:28.000Z</updated>
+        <summary type="html"><![CDATA[<ul>
+<li>安装mysql</li>
+<li>安装jdk1.8</li>
+<li>安装nginx</li>
+<li>安装git</li>
+<li>安装maven</li>
+</ul>
+]]></summary>
+        <content type="html"><![CDATA[<ul>
+<li>安装mysql</li>
+<li>安装jdk1.8</li>
+<li>安装nginx</li>
+<li>安装git</li>
+<li>安装maven</li>
+</ul>
+]]></content>
+    </entry>
+</feed>

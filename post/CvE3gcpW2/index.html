@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="keywords" content="Gridea静态个人博客">
+<meta name="description" content="">
+<meta name="theme-color" content="#000">
+<title>又拍云JAVA SDK文档 | 学海拾遗</title>
+<link rel="shortcut icon" href="/favicon.ico?v=1664336839649">
+<link rel="stylesheet" href="/styles/main.css">
+<link rel="stylesheet" href="/media/css/pisces.css">
+
+<link rel="stylesheet" href="/media/fonts/font-awesome.css">
+<link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Rosario:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+<link href="/media/hljs/styles/androidstudio.css" rel="stylesheet">  
+
+<script src="/media/hljs/highlight.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.0/velocity.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.0/velocity.ui.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+
+
+
+    <meta name="description" content="又拍云JAVA SDK文档" />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div class="head-top-line"></div>
+    <div class="header-box">
+      
+<div class=" pisces">
+  <header class="header bg-color ">
+    <div class="blog-header box-shadow-wrapper bg-color " id="header">
+      <div class="nav-toggle" id="nav_toggle">
+        <div class="toggle-box">
+          <div class="line line-top"></div>
+          <div class="line line-center"></div>
+          <div class="line line-bottom"></div>
+        </div>
+      </div>
+      <div class="site-meta">       
+        <div class="site-title">
+          
+            <a href="/" class="brand">
+              <span>学海拾遗</span>
+            </a>  
+          
+        </div>
+        
+          <p class="subtitle">工作生活中偶有所得，随手记下。</p>
+        
+      </div>
+      <nav class="site-nav" id="site_nav">
+        <ul id="nav_ul">
+          
+            <li class="nav-item ">
+              
+              
+                <a href="https://bitxiaoxia.github.io" target="_self">
+                  <i class="fa fa-globe"></i> 首页
+                </a>
+              
+            </li>
+          
+            <li class="nav-item ">
+              
+              
+                <a href="https://bitxiaoxia.github.io/archives" target="_self">
+                  <i class="fa fa-globe"></i> 归档
+                </a>
+              
+            </li>
+          
+            <li class="nav-item ">
+              
+              
+                <a href="https://bitxiaoxia.github.io/tags" target="_self">
+                  <i class="fa fa-globe"></i> 标签
+                </a>
+              
+            </li>
+          
+            <li class="nav-item ">
+              
+              
+                <a href="https://bitxiaoxia.github.io/post/about/" target="_self">
+                  <i class="fa fa-globe"></i> 关于
+                </a>
+              
+            </li>
+          
+          <li class="nav-item">
+            <a>
+              <i class="fa fa-search"></i> 搜索
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+</div>
+
+<script type="text/javascript"> 
+ 
+  let showNav = true;
+
+  let navToggle = document.querySelector('#nav_toggle'),
+  siteNav = document.querySelector('#site_nav');
+  
+  function navClick() {
+    let sideBar = document.querySelector('.sidebar');
+    let navUl = document.querySelector('#nav_ul');
+    navToggle.classList.toggle('nav-toggle-active');
+    siteNav.classList.toggle('nav-menu-active');
+    if (siteNav.classList.contains('nav-menu-active')) {
+      siteNav.style = "height: " + (navUl.children.length * 42) +"px !important";
+    } else {
+      siteNav.style = "";
+    }
+  }
+
+  navToggle.addEventListener('click',navClick);  
+</script>
+    </div>
+    <div class="main-continer">
+      
+      <div class="section-layout pisces ">
+        <div class="section-layout-wrapper">
+          
+
+<div class="sidebar">
+  
+    <div class="sidebar-box box-shadow-wrapper bg-color right-motion" id="sidebar">
+      
+        <div class="post-list-sidebar">
+          <div class="sidebar-title">
+            <span id="tocSideBar" class="sidebar-title-item sidebar-title-active">文章目录</span>
+            <span id="metaSideBar" class="sidebar-title-item">站点概览</span>
+          </div>
+        </div>
+      
+      <div class="sidebar-body pisces" id="sidebar_body">
+        
+          
+            <div class="post-side-meta" id="post_side_meta">
+              
+<div class="sidebar-wrapper box-shadow-wrapper bg-color">
+  <div class="sidebar-item">
+    <img class="site-author-image right-motion" src="https://bitxiaoxia.github.io/images/avatar.png"/>
+    <p class="site-author-name">学海拾遗</p>
+    <p class="site-description right-motion"></p>
+  </div>
+  <div class="sidebar-item side-item-stat right-motion">
+    <div class="sidebar-item-box">
+      <a href="/archives/">
+        
+        <span class="site-item-stat-count">14</span>
+        <span class="site-item-stat-name">文章</span>
+      </a>
+    </div>
+    <div class="sidebar-item-box">
+      <a href="">
+        <span class="site-item-stat-count">6</span>
+        <span class="site-item-stat-name">分类</span>
+      </a>
+    </div>
+    <div class="sidebar-item-box">
+      <a href="/tags/">
+        <span class="site-item-stat-count">6</span>
+        <span class="site-item-stat-name">标签</span>
+      </a>
+    </div>
+  </div>
+  
+    
+      <div class="sidebar-item" style="border-top: 1px dotted #ccc; margin-top: 10px;">
+      </div>
+    
+  
+  
+
+
+</div>
+            </div>
+            <div class="post-toc sidebar-body-active" id="post_toc" style="opacity: 1;">
+              <div class="toc-box right-motion">
+  <div class="toc-wrapper auto-number auto" id="toc_wrapper">
+    <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#maven-%E5%AE%89%E8%A3%85">Maven 安装</a></li>
+<li><a href="#%E7%9B%AE%E5%BD%95">目录</a></li>
+<li><a href="#%E4%BA%91%E5%AD%98%E5%82%A8%E5%9F%BA%E7%A1%80%E6%8E%A5%E5%8F%A3">云存储基础接口</a>
+<ul>
+<li><a href="#%E5%88%9D%E5%A7%8B%E5%8C%96-upyun">初始化 UpYun</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E7%9B%AE%E5%BD%95">创建目录</a></li>
+<li><a href="#%E5%88%A0%E9%99%A4%E7%9B%AE%E5%BD%95">删除目录</a></li>
+<li><a href="#%E8%8E%B7%E5%8F%96%E7%9B%AE%E5%BD%95%E6%96%87%E4%BB%B6%E5%88%97%E8%A1%A8">获取目录文件列表</a></li>
+<li><a href="#%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6">上传文件</a></li>
+<li><a href="#%E8%8E%B7%E5%8F%96%E6%96%87%E4%BB%B6%E4%BF%A1%E6%81%AF">获取文件信息</a></li>
+<li><a href="#%E8%8E%B7%E5%8F%96%E4%BD%BF%E7%94%A8%E9%87%8F%E4%BF%A1%E6%81%AF">获取使用量信息</a></li>
+<li><a href="#%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B6">下载文件</a></li>
+<li><a href="#%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6">删除文件</a></li>
+<li><a href="#%E4%B8%B2%E8%A1%8C%E5%BC%8F%E6%96%AD%E7%82%B9%E7%BB%AD%E4%BC%A0">串行式断点续传</a></li>
+<li><a href="#%E5%B9%B6%E8%A1%8C%E5%BC%8F%E6%96%AD%E7%82%B9%E7%BB%AD%E4%BC%A0">并行式断点续传</a></li>
+</ul>
+</li>
+<li><a href="#%E5%9B%BE%E7%89%87%E5%A4%84%E7%90%86%E6%8E%A5%E5%8F%A3">图片处理接口</a>
+<ul>
+<li><a href="#%E5%88%B6%E4%BD%9C%E5%9B%BE%E7%89%87%E7%BC%A9%E7%95%A5%E5%9B%BE">制作图片缩略图</a></li>
+<li><a href="#%E5%9B%BE%E7%89%87%E8%A3%81%E5%89%AA">图片裁剪</a></li>
+<li><a href="#%E5%9B%BE%E7%89%87%E6%97%8B%E8%BD%AC">图片旋转</a></li>
+</ul>
+</li>
+<li><a href="#%E8%A1%A8%E5%8D%95%E4%B8%8A%E4%BC%A0%E6%8E%A5%E5%8F%A3">表单上传接口</a>
+<ul>
+<li><a href="#%E5%88%9D%E5%A7%8B%E5%8C%96-formuploader">初始化 FormUploader</a></li>
+<li><a href="#%E8%A1%A8%E5%8D%95%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6">表单上传文件</a></li>
+</ul>
+</li>
+<li><a href="#%E5%A4%84%E7%90%86">处理</a>
+<ul>
+<li><a href="#%E5%BC%82%E6%AD%A5%E9%9F%B3%E8%A7%86%E9%A2%91%E5%A4%84%E7%90%86">异步音视频处理</a>
+<ul>
+<li><a href="#%E5%88%9D%E5%A7%8B%E5%8C%96-mediahandler">初始化 MediaHandler</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8F%91%E8%B5%B7%E5%BC%82%E6%AD%A5%E5%A4%84%E7%90%86%E8%AF%B7%E6%B1%82">发起异步处理请求</a></li>
+<li><a href="#%E6%9F%A5%E8%AF%A2%E5%A4%84%E7%90%86%E8%BF%9B%E5%BA%A6">查询处理进度</a></li>
+<li><a href="#%E6%9F%A5%E8%AF%A2%E5%A4%84%E7%90%86%E7%BB%93%E6%9E%9C">查询处理结果</a></li>
+<li><a href="#%E5%8E%8B%E7%BC%A9%E8%A7%A3%E5%8E%8B%E7%BC%A9">压缩解压缩</a>
+<ul>
+<li><a href="#%E5%88%9D%E5%A7%8B%E5%8C%96-compresshandler">初始化 CompressHandler</a></li>
+<li><a href="#%E5%8F%91%E8%B5%B7%E5%BC%82%E6%AD%A5%E5%A4%84%E7%90%86%E8%AF%B7%E6%B1%82-2">发起异步处理请求</a></li>
+</ul>
+</li>
+<li><a href="#%E5%BC%82%E6%AD%A5%E6%96%87%E4%BB%B6%E6%8B%89%E5%8F%96">异步文件拉取</a>
+<ul>
+<li><a href="#%E5%88%9D%E5%A7%8B%E5%8C%96-compresshandler-2">初始化 CompressHandler</a></li>
+<li><a href="#%E5%8F%91%E8%B5%B7%E5%BC%82%E6%AD%A5%E5%A4%84%E7%90%86%E8%AF%B7%E6%B1%82-3">发起异步处理请求</a></li>
+</ul>
+</li>
+<li><a href="#%E6%96%87%E6%A1%A3%E8%BD%AC%E6%8D%A2">文档转换</a>
+<ul>
+<li><a href="#%E5%88%9D%E5%A7%8B%E5%8C%96-compresshandler-3">初始化 CompressHandler</a></li>
+<li><a href="#%E5%8F%91%E8%B5%B7%E5%BC%82%E6%AD%A5%E5%A4%84%E7%90%86%E8%AF%B7%E6%B1%82-4">发起异步处理请求</a></li>
+</ul>
+</li>
+<li><a href="#%E5%9B%BE%E7%89%87%E6%8B%BC%E6%8E%A5">图片拼接</a>
+<ul>
+<li><a href="#%E5%88%9D%E5%A7%8B%E5%8C%96-jigsawhandler">初始化 JigsawHandler</a></li>
+<li><a href="#%E5%8F%91%E8%B5%B7%E5%BC%82%E6%AD%A5%E5%A4%84%E7%90%86%E8%AF%B7%E6%B1%82-5">发起异步处理请求</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+</div>
+
+<script>
+
+let lastTop = 0, lList = [], hList = [], postBody, lastIndex = -1; 
+let active = 'active-show', activeClass = 'active-current';
+let tocWrapper = document.querySelector('#toc_wrapper');
+let tocContent = tocWrapper.children[0];
+let autoNumber = tocWrapper&&tocWrapper.classList.contains('auto-number');
+
+function addTocNumber(elem, deep) {
+  if (!elem) {
+    return;
+  }
+  let prop = elem.__proto__;
+
+  if (prop === HTMLUListElement.prototype) {
+    for (let i = 0; i < elem.children.length; i++) {
+      addTocNumber(elem.children[i], deep + (i + 1) + '.');
+    }
+  } else if (prop === HTMLLIElement.prototype) {
+    // 保存li元素
+    if (elem.children[0].__proto__ === HTMLAnchorElement.prototype) {
+      lList.push(elem);
+    }
+    for (let i = 0; i < elem.children.length; i++) {
+      let cur = elem.children[i];
+      if (cur.__proto__ === HTMLAnchorElement.prototype) {
+        if (autoNumber) {
+          cur.text =  deep + ' ' + cur.text;
+        }
+      } else if (cur.__proto__ === HTMLUListElement.prototype) {
+        addTocNumber(cur, deep);
+      }
+    }
+  }
+}
+
+function removeParentActiveClass() {
+  let parents = tocContent.querySelectorAll('.'+active)
+  parents.forEach(function(elem) {
+    elem.classList.remove(active);
+  });
+}
+
+function addActiveClass(index) {
+  if (index >= 0 && index < hList.length) {
+    lList[index].classList.add(activeClass);
+  }
+}
+
+function removeActiveClass(index) {
+  if (index >= 0 && index < hList.length) {
+    lList[index].classList.remove(activeClass);
+  }
+}
+
+function addActiveLiElemment(elem, parent) {
+  if (!elem || elem === parent) {
+    return;
+  } else {
+    if (elem.__proto__ === HTMLLIElement.prototype) {
+      elem.classList.add(active);
+    }
+    addActiveLiElemment(elem.parentElement, parent);
+  }
+}
+
+function showToc() {
+  if (tocWrapper) {
+    postBody = document.querySelector('#post_body');
+    for (let i = 0; i < postBody.children.length; i++) {
+      if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+        hList.push(postBody.children[i]);
+      }
+    }
+    if (tocWrapper.classList.contains('compress')) {
+        tocContent.classList.add('closed');
+    } else if (tocWrapper.classList.contains('no_compress')){
+      tocContent.classList.add('expanded');
+    } else {
+      if (hList.length > 10) {
+        active = 'active-hidden'
+        tocContent.classList.add('closed');
+      } else {
+        tocContent.classList.add('expanded');
+      }
+    }
+  }
+}
+
+(function() {
+  // 处理不是从#一级标题开始目录
+  if (tocContent.children.length === 1 && tocContent.children[0].__proto__ === HTMLLIElement.prototype) {
+    let con = tocContent.children[0].children[0];
+    tocContent.innerHTML = con.innerHTML;
+  }
+  addTocNumber(tocContent, '');
+})();
+
+document.addEventListener('scroll', function(e) {
+  if (lList.length <= 0) {
+    return;
+  }
+  let scrollTop = document.scrollingElement.scrollTop + 10;
+  let dir;
+
+  if (lastTop - scrollTop > 0) {
+    dir = 'up';
+  } else {
+    dir = 'down';
+  }
+
+  lastTop = scrollTop;
+  if (scrollTop <= 0) {
+    if (lastIndex >= 0 && lastIndex < hList.length) {
+      lList[lastIndex].classList.remove(activeClass);
+    }
+    return;
+  }
+
+  let current = 0, hasFind = false;
+  for (let i = 0; i < hList.length; i++) {
+    if (hList[i].offsetTop > scrollTop) {
+      current = i;
+      hasFind = true;
+      break;
+    }
+  }
+  if (!hasFind && scrollTop > lList[lList.length - 1].offsetTop) {
+    current = hList.length - 1;
+  } else {
+    current--;
+  }
+  if (dir === 'down') {
+    if (current > lastIndex) {
+      addActiveClass(current);
+      removeActiveClass(lastIndex) 
+      lastIndex = current;
+      removeParentActiveClass();
+      lList[current] && addActiveLiElemment(lList[current].parentElement,tocContent);
+    }
+  } else {
+    if (current < lastIndex) {
+      addActiveClass(current);
+      removeActiveClass(lastIndex);
+      lastIndex = current;
+      removeParentActiveClass();
+      lList[current] && addActiveLiElemment(lList[current].parentElement,tocContent);
+    }
+  }
+});
+
+window.addEventListener('load', function() {
+  showToc();
+  document.querySelector('#sidebar').style='display: block;';
+  tocWrapper.classList.add('toc-active');
+  setTimeout(function() {
+    if ("createEvent" in document) {
+      let evt = document.createEvent("HTMLEvents");
+      evt.initEvent("scroll", false, true);
+      document.dispatchEvent(evt);
+    }
+    else {
+      document.fireEvent("scroll");
+    }
+  }, 500)
+})
+
+</script>
+            </div>
+          
+        
+      </div>
+    </div>
+  
+</div>
+<script>
+  const SIDEBAR_TITLE_ACTIVE = 'sidebar-title-active';
+  const SIDEBAR_BODY_ACTIVE = 'sidebar-body-active';
+  const SLIDE_UP_IN = 'slide-up-in';
+
+  let sidebar = document.querySelector('#sidebar'),
+  tocSideBar = document.querySelector('#tocSideBar'),
+  metaSideBar = document.querySelector('#metaSideBar'),
+  postToc = document.querySelector('#post_toc'),
+  postSiteMeta = document.querySelector('#post_side_meta'),
+  sidebarTitle = document.querySelector('.sidebar-title'),
+  sidebarBody = document.querySelector('#sidebar_body');
+
+  tocSideBar && tocSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  metaSideBar && metaSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  function toggleSidebar(e) {
+    let currentTitle = document.querySelector("."+SIDEBAR_TITLE_ACTIVE);
+    if (currentTitle == e.srcElement) {
+      return ;
+    }
+    let current, showElement, hideElement;
+    if (e.srcElement == metaSideBar) {
+      showElement = postSiteMeta;
+      hideElement = postToc;
+    } else if (e.srcElement == tocSideBar){
+      showElement = postToc;
+      hideElement = postSiteMeta;
+    }
+    currentTitle.classList.remove(SIDEBAR_TITLE_ACTIVE);
+    e.srcElement.classList.add(SIDEBAR_TITLE_ACTIVE);
+
+    window.Velocity(hideElement, 'stop');
+    window.Velocity(hideElement, 'transition.slideUpOut', {
+      display: 'none',
+      duration: 200,
+      complete: function () {
+        window.Velocity(showElement, 'transition.slideDownIn', {
+          duration: 200
+        });
+      }
+    })
+    hideElement.classList.remove(SIDEBAR_BODY_ACTIVE);
+    showElement.classList.add(SIDEBAR_BODY_ACTIVE);
+  }
+
+  postToc && postToc.addEventListener('transitionend', function() {
+    this.classList.remove(SLIDE_UP_IN);
+  });
+
+  if (sidebarBody) {
+    if (sidebarBody.classList.contains('pisces') || sidebarBody.classList.contains('gemini')) {
+      let hasFix = false;
+      let scrollEl = document.querySelector('.main-continer');
+      let limitTop = document.querySelector('#nav_ul').children.length * 42 + 162;
+      window.addEventListener('scroll', function(e) {
+        if (document.scrollingElement.scrollTop >= limitTop) {
+          if (!hasFix) {
+            sidebar.classList.add('sidebar-fixed');
+            hasFix = true;
+          }
+        } else {
+          if (hasFix) {
+            sidebar.classList.remove('sidebar-fixed');
+            hasFix = false;
+          }
+        }
+      });
+    }
+  }
+  
+</script>
+          <div class="section-box box-shadow-wrapper">
+            <div class="section bg-color post post-page">
+              <header class="post-header">
+  <h1 class="post-title">
+    <a class="post-title-link" href="https://bitxiaoxia.github.io/post/CvE3gcpW2/">
+      又拍云JAVA SDK文档
+    </a>
+  </h1>
+  <div class="post-meta">
+    
+    <span class="meta-item pc-show">
+      <i class="fa fa-calendar-o"></i>
+      <span>发布于</span>
+      <span>2019-08-01</span>
+      <span class="post-meta-divider pc-show">|</span>
+    </span>
+    
+    <span class="meta-item">
+      <i class="fa fa-clock-o"></i>
+      <span>15分钟</span>
+    </span>
+    <span class="meta-item">
+      <span class="post-meta-divider">|</span>
+      <i class="fa fa-file-word-o"></i>
+      <span>3423<span class="pc-show">字数</span></span>
+    </span>
+    
+  </div>
+</header>
+              <div class="post-body next-md-body" id="post_body">
+                <p>又拍云存储 Java SDK，基于 <a href="http://docs.upyun.com/api/rest_api/">又拍云存储 HTTP REST API 接口</a> ， <a href="http://docs.upyun.com/api/form_api/">又拍云 HTTP FORM API 接口</a> 和 <a href="http://docs.upyun.com/cloud/">又拍云云处理文档 </a>开发，适用于 Java 7 及以上版本。</p>
+<!-- more -->
+<h2 id="maven-安装">Maven 安装</h2>
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;com.upyun&lt;/groupId&gt;
+  &lt;artifactId&gt;java-sdk&lt;/artifactId&gt;
+  &lt;version&gt;4.1.2&lt;/version&gt;
+&lt;/dependency&gt;
+
+</code></pre>
+<p><strong>更新说明</strong></p>
+<p>使用1.0.x系列版本 SDK 的用户，注意原有部分方法已经不再推荐使用，但是出于兼容考虑目前任然保留，建议更新升级程序使用新版 SDK 提供的方法。</p>
+<h2 id="目录">目录</h2>
+<ul>
+<li><a href="#%E4%BA%91%E5%AD%98%E5%82%A8%E5%9F%BA%E7%A1%80%E6%8E%A5%E5%8F%A3">云存储基础接口</a>
+<ul>
+<li><a href="#%E5%88%9D%E5%A7%8B%E5%8C%96UpYun">初始化 UpYun</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E7%9B%AE%E5%BD%95">创建目录</a></li>
+<li><a href="#%E5%88%A0%E9%99%A4%E7%9B%AE%E5%BD%95">删除目录</a></li>
+<li><a href="#%E8%8E%B7%E5%8F%96%E7%9B%AE%E5%BD%95%E6%96%87%E4%BB%B6%E5%88%97%E8%A1%A8">获取目录文件列表</a></li>
+<li><a href="#%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6">上传文件</a></li>
+<li><a href="#%E8%8E%B7%E5%8F%96%E6%96%87%E4%BB%B6%E4%BF%A1%E6%81%AF">获取文件信息</a></li>
+<li><a href="#%E8%8E%B7%E5%8F%96%E4%BD%BF%E7%94%A8%E9%87%8F%E4%BF%A1%E6%81%AF">获取使用量信息</a></li>
+<li><a href="#%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B6">下载文件</a></li>
+<li><a href="#%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6">删除文件</a></li>
+<li><a href="#%E4%B8%B2%E8%A1%8C%E5%BC%8F%E6%96%AD%E7%82%B9%E7%BB%AD%E4%BC%A0">串行式断点续传</a></li>
+<li><a href="#%E5%B9%B6%E8%A1%8C%E5%BC%8F%E6%96%AD%E7%82%B9%E7%BB%AD%E4%BC%A0">并行式断点续传</a></li>
+</ul>
+</li>
+<li><a href="#%E5%9B%BE%E7%89%87%E5%A4%84%E7%90%86%E6%8E%A5%E5%8F%A3">图片处理接口</a>
+<ul>
+<li><a href="#%E5%88%B6%E4%BD%9C%E5%9B%BE%E7%89%87%E7%BC%A9%E7%95%A5%E5%9B%BE">制作图片缩略图</a></li>
+<li><a href="#%E5%9B%BE%E7%89%87%E8%A3%81%E5%89%AA">图片裁剪</a></li>
+<li><a href="#%E5%9B%BE%E7%89%87%E6%97%8B%E8%BD%AC">图片旋转</a></li>
+</ul>
+</li>
+<li><a href="#%E8%A1%A8%E5%8D%95%E4%B8%8A%E4%BC%A0%E6%8E%A5%E5%8F%A3">表单上传接口</a>
+<ul>
+<li><a href="#%E5%88%9D%E5%A7%8B%E5%8C%96FormUploader">初始化 FormUploader</a></li>
+<li><a href="#%E8%A1%A8%E5%8D%95%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6">表单上传文件</a></li>
+<li><a href="#%E8%A1%A8%E5%8D%95%E4%B8%8A%E4%BC%A0%E4%BD%9C%E5%9B%BE">表单上传作图</a></li>
+<li><a href="#%E9%94%99%E8%AF%AF%E8%AF%B4%E6%98%8E">错误说明</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BA%91%E5%A4%84%E7%90%86">云处理</a>
+<ul>
+<li><a href="#%E5%BC%82%E6%AD%A5%E9%9F%B3%E8%A7%86%E9%A2%91%E5%A4%84%E7%90%86">异步音视频处理</a></li>
+<li><a href="#%E6%9F%A5%E8%AF%A2%E5%A4%84%E7%90%86%E8%BF%9B%E5%BA%A6">查询处理进度</a></li>
+<li><a href="#%E6%9F%A5%E8%AF%A2%E5%A4%84%E7%90%86%E7%BB%93%E6%9E%9C">查询处理结果</a></li>
+<li><a href="#%E5%8E%8B%E7%BC%A9%E8%A7%A3%E5%8E%8B%E7%BC%A9">压缩解压缩</a></li>
+<li><a href="#%E5%BC%82%E6%AD%A5%E6%96%87%E4%BB%B6%E6%8B%89%E5%8F%96">异步文件拉取</a></li>
+<li><a href="#%E6%96%87%E6%A1%A3%E8%BD%AC%E6%8D%A2">文档转换</a></li>
+<li><a href="#%E5%9B%BE%E7%89%87%E6%8B%BC%E6%8E%A5">图片拼接</a></li>
+</ul>
+</li>
+</ul>
+<p><a name="云存储基础接口"></a></p>
+<h2 id="云存储基础接口">云存储基础接口</h2>
+<p><a name="初始化UpYun"></a></p>
+<h3 id="初始化-upyun">初始化 UpYun</h3>
+<pre><code class="language-Java">    UpYun upyun = new UpYun(&quot;空间名称&quot;, &quot;操作员名称&quot;, &quot;操作员密码&quot;);
+</code></pre>
+<p><strong>可选属性：</strong></p>
+<ul>
+<li>是否开启 debug 模式：默认不开启</li>
+</ul>
+<pre><code class="language-Java">    upyun.setDebug(true);
+</code></pre>
+<ul>
+<li>手动设置超时时间：默认为30秒</li>
+</ul>
+<pre><code class="language-Java">    upyun.setTimeout(60);
+</code></pre>
+<ul>
+<li>选择最优的接入点</li>
+</ul>
+<pre><code class="language-Java">    upyun.setApiDomain(UpYun.ED_AUTO);
+</code></pre>
+<blockquote>
+<p>根据国内的网络情况，又拍云存储 API 目前提供了电信、联通网通、移动铁通三个接入点。可以通过<code>setApiDomain()</code>方法进行设置，默认将根据网络条件自动选择接入点。</p>
+</blockquote>
+<blockquote>
+<p>接入点有四个值可选：</p>
+</blockquote>
+<pre><code class="language-Java">	UpYun.ED_AUTO    //根据网络条件自动选择接入点
+	UpYun.ED_TELECOM //电信接入点
+	UpYun.ED_CNC     //联通网通接入点
+	UpYun.ED_CTT     //移动铁通接入点
+</code></pre>
+<p><em>**注：**建议大家根据服务器网络状况，手动设置合理的接入点已获取最佳的访问速度</em></p>
+<hr>
+<p><a name="创建目录"></a></p>
+<h3 id="创建目录">创建目录</h3>
+<p><strong>方法原型：</strong></p>
+<pre><code class="language-Java">	public boolean mkDir(String path, boolean auto);
+</code></pre>
+<p><strong>参数说明：</strong></p>
+<ul>
+<li><code>path</code>	目录路径，以<code>/</code>结尾</li>
+<li><code>auto</code>	（可选）：若为 <code>true</code> 则自动创建父级目录（只支持自动创建10级以内的父级目录）</li>
+</ul>
+<p><strong>返回值说明：</strong></p>
+<ul>
+<li>结果为 <code>true</code> 创建目录成功</li>
+<li>若空间相同目录下已经存在同名的文件，则将返回『不允许创建目录』的错误</li>
+</ul>
+<p><strong>举例说明：</strong></p>
+<pre><code class="language-Java">	String path = &quot;/dir1/dir2/&quot;;
+    // 创建目录，自动创建父级目录
+    boolean result = upyun.mkDir(path, true);
+</code></pre>
+<hr>
+<p><a name="删除目录"></a></p>
+<h3 id="删除目录">删除目录</h3>
+<p><strong>方法原型：</strong></p>
+<pre><code class="language-Java">public boolean rmDir(String path);
+</code></pre>
+<p><strong>参数说明：</strong></p>
+<ul>
+<li><code>path</code>	目录路径</li>
+</ul>
+<p><strong>返回值说明：</strong></p>
+<ul>
+<li>结果为 <code>true</code> 删除目录成功</li>
+<li>若待删除的目录 <code>path</code> 下还存在任何文件或子目录，将返回『不允许删除』的错误</li>
+</ul>
+<p><strong>举例说明：</strong></p>
+<pre><code class="language-Java">	String path = &quot;/dir1/dir2/&quot;;
+    // 删除目录
+    boolean result = upyun.rmDir(path); 
+</code></pre>
+<hr>
+<p><a name="获取目录文件列表"></a></p>
+<h3 id="获取目录文件列表">获取目录文件列表</h3>
+<p><strong>方法原型：</strong></p>
+<pre><code class="language-Java">public List&lt;FolderItem&gt; readDir(String path,Map&lt;String, String&gt; params);
+</code></pre>
+<blockquote>
+<p><code>UpYun.FolderItem</code> 包含属性:</p>
+<ul>
+<li><code>name</code>  文件名</li>
+<li><code>type</code>  文件类型</li>
+<li><code>size</code>  文件大小</li>
+<li><code>date</code>  文件创建日期</li>
+</ul>
+<p>以上属性作用域皆为 <code>public</code>，可直接调用</p>
+</blockquote>
+<p><strong>参数说明：</strong></p>
+<ul>
+<li><code>path</code>  目录路径</li>
+<li><code>params</code> 可选参数</li>
+</ul>
+<p><strong>返回值说明：</strong></p>
+<ul>
+<li>若 <code>path</code> 目录没有内容时，返回<code>null</code></li>
+<li>若 <code>path</code> 目录不存在时，则将返『不存在目录』的错误</li>
+</ul>
+<p><strong>举例说明：</strong></p>
+<pre><code class="language-Java">	String path = &quot;/dir1/&quot;;
+    // 获取目录中文件列表
+    List&lt;UpYun.FolderItem&gt; items = upyun.readDir(path,null);
+    for (int i = 0; i &lt; items.size(); i++) {
+		System.out.println(items.get(i));
+	}
+</code></pre>
+<hr>
+<p><a name="上传文件"></a></p>
+<h3 id="上传文件">上传文件</h3>
+<p><strong>方法原型：</strong></p>
+<pre><code class="language-Java">public boolean writeFile(String filePath, String datas, boolean auto);
+public boolean writeFile(String filePath, File file, boolean auto);
+public boolean writeFile(String filePath, byte[] datas, boolean auto);
+</code></pre>
+<p><strong>参数说明：</strong></p>
+<ul>
+<li><code>filePath</code>  保存到又拍云存储的文件路径，以<code>/</code>开始</li>
+<li>第二个参数  接受 <code>String</code> 、 <code>File</code> 和 <code>byte[]</code> 三种类型的数据</li>
+<li><code>auto</code>  （可选）：若为 <code>true</code> 则自动创建父级目录（只支持自动创建10级以内的父级目录）</li>
+</ul>
+<p><strong>返回值说明：</strong></p>
+<ul>
+<li>结果为 <code>true</code> 上传文件成功</li>
+</ul>
+<p><strong>可选属性：</strong></p>
+<ul>
+<li>上传文件时可进行文件的 <code>MD5</code> 校验，若又拍云服务端收到的文件MD5值与用户设置的不一致，将返回 <code>406 Not Acceptable</code> 错误。对于需要确保上传文件的完整性要求的业务，可以设置该参数：</li>
+</ul>
+<pre><code class="language-Java">    upyun.setContentMD5(UpYun.md5(file));  
+</code></pre>
+<p><strong>举例说明：</strong></p>
+<pre><code class="language-Java">    // 例1：上传纯文本内容，自动创建父级目录
+    String str = &quot;Hello UpYun&quot;;
+    boolean result = upyun.writeFile(&quot;/path/to/file&quot;, str, true);
+
+    // 例2：采用数据流模式上传文件（节省内存）,自动创建父级目录
+	File file = new File(localFilePath);
+	upyun.setContentMD5(UpYun.md5(file));
+	boolean result = upyun.writeFile(filePath, file, true);
+</code></pre>
+<p><em><strong>注：</strong><br>
+若空间内指定目录已存在相同文件，则会被覆盖，且<strong>不可逆</strong>。若要避免此情况，可以先通过<a href="#%E8%8E%B7%E5%8F%96%E6%96%87%E4%BB%B6%E4%BF%A1%E6%81%AF">获取文件信息</a>来判断是否已经存在相同文件</em></p>
+<hr>
+<p><a name="获取文件信息"></a></p>
+<h3 id="获取文件信息">获取文件信息</h3>
+<p><strong>方法原型：</strong></p>
+<pre><code class="language-Java">public Map&lt;String, String&gt; getFileInfo(String filePath);
+</code></pre>
+<p><strong>参数说明：</strong></p>
+<ul>
+<li><code>filePath</code>  又拍云中文件的路径</li>
+</ul>
+<p><strong>返回值说明：</strong></p>
+<ul>
+<li>若 <code>filePath</code> 所指定文件不存在，则直接返回 <code>null</code></li>
+<li><code>Map</code> 包含3个Key：</li>
+</ul>
+<blockquote>
+<ul>
+<li><code>type</code>  文件类型</li>
+<li><code>size</code>  文件大小</li>
+<li><code>date</code>  创建日期</li>
+</ul>
+</blockquote>
+<p><strong>举例说明：</strong></p>
+<pre><code class="language-Java">	String filePath = &quot;/path/to/file&quot;;
+    // 获取文件信息
+    Map&lt;String, String&gt; info = upyun.getFileInfo(filePath);
+    String type = info.get(&quot;type&quot;); 
+    String size = info.get(&quot;size&quot;); 
+    String date = info.get(&quot;date&quot;);
+</code></pre>
+<hr>
+<p><a name="获取使用量信息"></a></p>
+<h3 id="获取使用量信息">获取使用量信息</h3>
+<p><strong>方法原型：</strong></p>
+<pre><code class="language-Java">	public long getBucketUsage();
+</code></pre>
+<p><strong>举例说明：</strong></p>
+<pre><code class="language-Java">    // 例1：获取整个空间的使用量情况
+    long usage = upyun.getBucketUsage();
+</code></pre>
+<p><strong>返回值说明：</strong></p>
+<ul>
+<li>返回值单位为 Byte</li>
+</ul>
+<hr>
+<p><a name="下载文件"></a></p>
+<h3 id="下载文件">下载文件</h3>
+<p><strong>方法原型：</strong></p>
+<pre><code class="language-Java">	public String readFile(String filePath)；
+	public boolean readFile(String filePath, File file)；
+</code></pre>
+<p><strong>参数说明：</strong></p>
+<ul>
+<li><code>filePath</code>  文件在又拍云存储中的路径</li>
+<li><code>file</code>  本地临时文件（用来保存下载下来的数据）</li>
+</ul>
+<p><strong>返回值说明：</strong></p>
+<ul>
+<li>方法一：文本内容</li>
+<li>方法二：结果为 <code>true</code> 下载成功</li>
+</ul>
+<p><strong>举例说明：</strong></p>
+<pre><code class="language-Java">    // 例1：直接读取文本内容
+    String remoteFilePath = &quot;/path/to/file&quot;;
+    String datas = upyun.readFile(remoteFilePath);
+
+    // 例2：下载文件，采用数据流模式下载文件（节省内存）
+    String remoteFilePath = &quot;/path/to/file&quot;;
+    File file = new File(localFilePath); // 创建一个本地临时文件
+    boolean result = upyun.readFile(remoteFilePath, file);
+</code></pre>
+<hr>
+<p><a name="删除文件"></a></p>
+<h3 id="删除文件">删除文件</h3>
+<p><strong>方法原型：</strong></p>
+<pre><code class="language-Java">	public boolean deleteFile(String filePath,Map&lt;String, String&gt; params);
+</code></pre>
+<p><strong>参数说明：</strong></p>
+<ul>
+<li><code>filePath</code>  文件在又拍云的路径</li>
+<li><code>params </code> 可选参数 可为 null</li>
+</ul>
+<p><strong>返回值说明：</strong></p>
+<ul>
+<li>若 <code>filePath</code> 指定的文件不存在，则返回『文件不存在』的错误</li>
+<li>结果为 <code>true</code> 删除文件成功</li>
+</ul>
+<p><strong>举例说明：</strong></p>
+<pre><code class="language-Java">	String filePath = &quot;/path/to/file&quot;;
+    // 删除文件
+    boolean result = upyun.deleteFile(filePath, null);
+</code></pre>
+<p><a name="串行式断点续传"></a></p>
+<h3 id="串行式断点续传">串行式断点续传</h3>
+<p>初始化 SerialUploader</p>
+<pre><code class="language-java">	SerialUploader resume = new SerialUploader(&quot;空间名称&quot;, &quot;操作员名称&quot;, &quot;操作员密码&quot;)
+</code></pre>
+<p>设置上传进度监听</p>
+<pre><code class="language-java">	 resume.setOnProgressListener(new BaseUploader.OnProgressListener()
+</code></pre>
+<p>设置 MD5 校验</p>
+<pre><code class="language-java">	resume.setCheckMD5(true);
+</code></pre>
+<p>开始上传</p>
+<pre><code class="language-java">	public boolean upload(String filePath, String uploadPath,Map&lt;String, String&gt; params)	
+</code></pre>
+<p>暂停</p>
+<pre><code class="language-java">	public boolean pause()	
+</code></pre>
+<p>继续</p>
+<pre><code class="language-java">	public boolean resume()	
+</code></pre>
+<p><a name="并行式断点续传"></a></p>
+<h3 id="并行式断点续传">并行式断点续传</h3>
+<p>初始化 ParallelUploader</p>
+<pre><code class="language-java">	ParallelUploader paralleUploader = new ParallelUploader(&quot;空间名称&quot;, &quot;操作员名称&quot;, &quot;操作员密码&quot;)
+</code></pre>
+<p>设置上传进度监听</p>
+<pre><code class="language-java">	 paralleUploader.setOnProgressListener(new ResumeUploader.OnProgressListener()
+</code></pre>
+<p>设置 MD5 校验</p>
+<pre><code class="language-java">	paralleUploader.setCheckMD5(true);
+</code></pre>
+<p>设置 并行数 校验</p>
+<pre><code class="language-java">	paralleUploader.setParalle(4);
+</code></pre>
+<p>开始上传</p>
+<pre><code class="language-java">	public boolean upload(String filePath, String uploadPath,Map&lt;String, String&gt; params)	
+</code></pre>
+<p>暂停</p>
+<pre><code class="language-java">	public boolean pause()	
+</code></pre>
+<p>继续</p>
+<pre><code class="language-java">	public boolean resume()	
+</code></pre>
+<p><strong>参数说明：</strong></p>
+<ul>
+<li><code>filePath </code> 待上传文件路径</li>
+<li><code>uploadPath </code> 上传至空间目录</li>
+<li><code>params </code>	通用可选上传参数见文档 可为null</li>
+</ul>
+<p><strong>详细示例：</strong><br>
+见 <a href="https://github.com/upyun/java-sdk/blob/master/src/main/java/demo/ResumeUploadDemo.java">ResumeUploadDemo</a></p>
+<p><a name="图片处理接口"></a></p>
+<h2 id="图片处理接口">图片处理接口</h2>
+<p><strong>方法原型：</strong></p>
+<pre><code class="language-Java">	public boolean writeFile(String filePath, File file, boolean 	auto, Map&lt;String, String&gt; params);
+	public boolean writeFile(String filePath, byte[] datas, boolean 	auto, Map&lt;String, String&gt; params);
+	public boolean writeFile(String filePath, String datas, boolean 	auto, Map&lt;String, String&gt; params);
+</code></pre>
+<p><strong>参数说明：</strong></p>
+<ul>
+<li><code>filePath</code>  保存到又拍云存储的路径</li>
+<li>第二个参数  接受 <code>String</code> 、<code>File</code> 和 <code>byte[]</code> 三种类型的<strong>图片数据内容</strong></li>
+<li><code>auto</code>  （可选）：自动创建父级目录（只支持自动创建10级以内的父级目录）</li>
+<li><code>params</code>  自定义图片处理参数的组合，详情请看<a href="http://docs.upyun.com/api/rest_api/#_4">params参数说明</a></li>
+</ul>
+<p><strong>返回值说明：</strong></p>
+<ul>
+<li>结果为 <code>true</code> 图片上传并处理成功</li>
+</ul>
+<p>图片处理包括『制作图片缩略图』，『图片裁剪』，『图片旋转』。只需要选则不同的 PARAMS 参数就可以分别完成这些操作，下面分别举例说明。</p>
+<hr>
+<p><a name="制作图片缩略图"></a></p>
+<h3 id="制作图片缩略图">制作图片缩略图</h3>
+<p><strong>举例说明：</strong></p>
+<pre><code class="language-Java">    Map&lt;String, String&gt; params = new HashMap&lt;String, String&gt;();
+    
+    // 设置缩略图类型
+    params.put(PARAMS.KEY_X_GMKERL_TYPE.getValue(), PARAMS.VALUE_FIX_BOTH.getValue());
+    
+    // 设置缩略图参数值
+    params.put(PARAMS.KEY_X_GMKERL_VALUE.getValue(), &quot;150x150&quot;);
+    
+    // 设置缩略图的质量，默认 95
+    params.put(PARAMS.KEY_X_GMKERL_QUALITY.getValue(), &quot;95&quot;);
+    
+    // 待上传的图片文件
+    File file = new File(localFilePath);
+    
+    String filePath = &quot;/path/to/file&quot;;
+    
+    // 上传图片，并同时进行图片处理
+    boolean result = upyun.writeFile(filePath, file, true, params);
+</code></pre>
+<hr>
+<p><a name="图片裁剪"></a></p>
+<h3 id="图片裁剪">图片裁剪</h3>
+<p><strong>举例说明：</strong></p>
+<pre><code class="language-Java">    // 设置缩略图的参数
+    Map&lt;String, String&gt; params = new HashMap&lt;String, String&gt;();
+    
+    // 设置图片裁剪，参数格式：x,y,width,height
+    params.put(PARAMS.KEY_X_GMKERL_CROP.getValue(), &quot;0,0,100,100&quot;);
+    
+    // 待上传的图片文件
+    File file = new File(localFilePath);
+    
+    // 上传图片，并同时进行图片处理
+    boolean result = upyun.writeFile(savePath, file, autoMkDir, params);
+</code></pre>
+<hr>
+<p><a name="图片旋转"></a></p>
+<h3 id="图片旋转">图片旋转</h3>
+<p><strong>举例说明：</strong></p>
+<pre><code class="language-Java">   // 设置缩略图的参数
+    Map&lt;String, String&gt; params = new HashMap&lt;String, String&gt;();
+    
+    // 设置图片旋转
+    params.put(PARAMS.KEY_X_GMKERL_ROTATE.getValue(), PARAMS.VALUE_ROTATE_90.getValue());
+    
+    // 待上传的图片文件
+    File file = new File(localFilePath);
+    
+    // 上传图片，并同时进行图片处理
+    boolean result = upyun.writeFile(savePath, file, autoMkDir, params);
+</code></pre>
+<p><a name="表单上传接口"></a></p>
+<h2 id="表单上传接口">表单上传接口</h2>
+<p><a name="初始化FormUploader"></a></p>
+<h3 id="初始化-formuploader">初始化 FormUploader</h3>
+<pre><code class="language-java"> 	public FormUploader(String bucketName, String userName, String password) 
+</code></pre>
+<p>参数说明：</p>
+<ul>
+<li><code>bucketName </code>	 空间名</li>
+<li><code>userName </code>  操作员</li>
+<li><code>password </code>  密码</li>
+</ul>
+<p><strong>可选属性：</strong></p>
+<ul>
+<li>手动设置超时时间：默认为30秒</li>
+</ul>
+<pre><code class="language-java">	public void setTimeout(int timeout)
+</code></pre>
+<ul>
+<li>选择最优的接入点,默认 <code>v0.api.upyun.com</code></li>
+</ul>
+<pre><code class="language-Java">    public void setApiDomain(String domain)
+</code></pre>
+<ul>
+<li>选择默认过期时间，默认1800秒</li>
+</ul>
+<pre><code class="language-java">	public void setExpiration(int expiration)
+</code></pre>
+<p><a name="表单上传文件"></a></p>
+<h3 id="表单上传文件">表单上传文件</h3>
+<p><strong>方法原型：</strong></p>
+<pre><code class="language-java">	public Result upload(Map&lt;String, Object&gt; params, File file) 
+	public Result upload(Map&lt;String, Object&gt; params, byte[] datas) 
+</code></pre>
+<p><strong>参数说明：</strong></p>
+<ul>
+<li><code>params </code>  参数键值对</li>
+<li><code>file </code>  上传文件</li>
+<li><code>datas </code> 上传数组</li>
+</ul>
+<p>参数键值对中 <code>Params.SAVE_KEY</code> 为必选参数，其他可选参数见 <a href="https://github.com/upyun/java-sdk/blob/master/src/main/java/com/upyun/Params.java">Params</a> 或者<a href="http://docs.upyun.com/api/form_api/#api_1">官网 API 文档</a>。</p>
+<p><strong>返回说明:</strong></p>
+<blockquote>
+<ul>
+<li><code>Result.Succeed</code>  是否成功</li>
+<li><code>Result.code</code>  返回http消息码</li>
+<li><code>Result.msg</code>  返回消息</li>
+</ul>
+</blockquote>
+<p><strong>举例说明：</strong></p>
+<p>表单上传示例可见<a href="https://github.com/upyun/java-sdk/blob/master/src/main/java/demo/FormUploadDemo.java"> FormUploadDemo </a>。</p>
+<p><a name="表单上传作图"></a><br>
+###表单上传作图</p>
+<p><strong>上传同步作图</strong></p>
+<pre><code class="language-java">     private static void testSync() {
+        //初始化uploader
+        FormUploader uploader = new FormUploader(BUCKET_NAME, APIKEY, null);
+
+        //初始化参数组 Map
+        final Map&lt;String, Object&gt; paramsMap = new HashMap&lt;String, Object&gt;();
+
+        //添加 SAVE_KEY 参数
+        paramsMap.put(Params.SAVE_KEY, savePath);
+
+        //添加同步上传作图参数 X_GMKERL_THUMB
+        paramsMap.put(Params.X_GMKERL_THUMB, &quot;/fw/300/unsharp/true/quality/80/format/png&quot;);
+
+        //打印结果
+        System.out.println(uploader.upload(paramsMap, file));
+    }	
+</code></pre>
+<p><code>paramsMap</code> 添加键值对，<code>Params.X_GMKERL_THUMB</code> 为 key，作图规则见<a href="http://docs.upyun.com/cloud/image/#_2">上传作图 API</a></p>
+<p><strong>上传异步作图</strong></p>
+<pre><code class="language-java">	 private static void testAsync() {
+        //uploader
+        FormUploader uploader = new FormUploader(BUCKET_NAME, APIKEY, null);
+
+        //初始化参数组 Map
+        final Map&lt;String, Object&gt; paramsMap = new HashMap&lt;String, Object&gt;();
+
+        //添加 SAVE_KEY 参数
+        paramsMap.put(Params.SAVE_KEY, savePath);
+
+        //初始化JSONArray
+        JSONArray array = new JSONArray();
+
+        //初始化JSONObject
+        JSONObject json = new JSONObject();
+
+        //json 添加 name 属性
+        json.put(&quot;name&quot;, &quot;thumb&quot;);
+
+        //json 添加 X_GMKERL_THUMB 属性
+        json.put(Params.X_GMKERL_THUMB, &quot;/fw/300/unsharp/true/quality/80/format/png&quot;);
+
+        //json 添加 save_as 属性
+        json.put(&quot;save_as&quot;, &quot;/path/to/fw_100.jpg&quot;);
+
+        //json 添加 notify_url 属性
+        json.put(&quot;notify_url&quot;,&quot;http://httpbin.org/post&quot;);
+
+        //将json 对象放入 JSONArray
+        array.put(json);
+
+        //添加异步作图参数 APPS
+        paramsMap.put(Params.APPS, array);
+
+        //打印结果
+        System.out.println(uploader.upload(paramsMap, file));
+    }
+</code></pre>
+<p><code>paramsMap</code> 添加键值对，<code>Params.APPS</code> 为 key，作图规则见<a href="http://docs.upyun.com/cloud/image/#_2">上传作图 API</a></p>
+<p><a name="云处理"></a></p>
+<h2 id="处理">处理</h2>
+<p><a name="异步音视频处理"></a></p>
+<h3 id="异步音视频处理">异步音视频处理</h3>
+<h4 id="初始化-mediahandler">初始化 MediaHandler</h4>
+<pre><code class="language-java">	MediaHandler handle = new MediaHandler(BUCKET_NAME, OPERATOR_NAME, OPERATOR_PWD);
+</code></pre>
+<p>参数说明：</p>
+<ul>
+<li><code>BUCKET_NAME </code>	 空间名</li>
+<li><code>OPERATOR_NAME </code>  操作员名称</li>
+<li><code>OPERATOR_PWD </code>  操作员密码</li>
+</ul>
+<p><strong>可选属性：</strong></p>
+<ul>
+<li>手动设置超时时间：默认为30秒</li>
+</ul>
+<pre><code class="language-java">	public void setTimeout(int timeout)
+</code></pre>
+<h3 id="发起异步处理请求">发起异步处理请求</h3>
+<p><strong>方法原型：</strong></p>
+<pre><code class="language-java">	 public Result process(Map&lt;String, Object&gt; params) throws IOException 
+</code></pre>
+<p><strong>参数说明：</strong></p>
+<ul>
+<li><code>params </code>  参数键值对</li>
+</ul>
+<p>详细参数可见 <a href="https://github.com/upyun/java-sdk/blob/master/src/main/java/com/upyun/MediaHandler.java">MediaHandler</a> 或者<a href="http://docs.upyun.com/cloud/av/#_3">官网 API 文档</a>。</p>
+<p><strong>返回说明:</strong></p>
+<blockquote>
+<ul>
+<li><code>Result.Succeed</code>  是否成功</li>
+<li><code>Result.code</code>  返回http消息码</li>
+<li><code>Result.msg</code>  返回消息</li>
+</ul>
+</blockquote>
+<p><strong>举例说明：</strong></p>
+<p>示例可见<a href="https://github.com/upyun/java-sdk/blob/master/src/main/java/demo/MediaHandlerDemo.java"> testMediaProcess </a>。</p>
+<p><a name="查询处理进度"></a></p>
+<h3 id="查询处理进度">查询处理进度</h3>
+<p><strong>方法原型：</strong></p>
+<pre><code class="language-java">	 public Result getStatus(Map&lt;String, Object&gt; params) throws IOException 
+</code></pre>
+<p><strong>参数说明：</strong></p>
+<ul>
+<li><code>params </code>  参数键值对 包括 <code>bucket_name</code> 和 <code>task_ids </code></li>
+</ul>
+<p><strong>返回说明:</strong></p>
+<p>同上</p>
+<p><strong>举例说明：</strong></p>
+<p>示例可见<a href="https://github.com/upyun/java-sdk/blob/master/src/main/java/demo/MediaHandlerDemo.java"> testMediaStatus </a>。</p>
+<p><a name="查询处理结果"></a></p>
+<h3 id="查询处理结果">查询处理结果</h3>
+<p><strong>方法原型：</strong></p>
+<pre><code class="language-java">	 public Result getResult(Map&lt;String, Object&gt; params) throws IOException
+</code></pre>
+<p><strong>参数说明：</strong></p>
+<p>同上</p>
+<p><strong>返回说明:</strong></p>
+<p>同上</p>
+<p><strong>举例说明：</strong></p>
+<p>示例可见<a href="https://github.com/upyun/java-sdk/blob/master/src/main/java/demo/MediaHandlerDemo.java"> testMediaResult </a>。</p>
+<p><a name="压缩解压缩"></a></p>
+<h3 id="压缩解压缩">压缩解压缩</h3>
+<h4 id="初始化-compresshandler">初始化 CompressHandler</h4>
+<pre><code class="language-java">	MediaHandler handle = new MediaHandler(BUCKET_NAME, OPERATOR_NAME, OPERATOR_PWD);
+</code></pre>
+<p>参数说明：</p>
+<ul>
+<li><code>BUCKET_NAME </code>	 空间名</li>
+<li><code>OPERATOR_NAME </code>  操作员名称</li>
+<li><code>OPERATOR_PWD </code>  操作员密码</li>
+</ul>
+<h4 id="发起异步处理请求-2">发起异步处理请求</h4>
+<pre><code class="language-java">	 public Result process(Map&lt;String, Object&gt; params) throws IOException 
+</code></pre>
+<p><strong>参数说明：</strong></p>
+<ul>
+<li><code>params </code>  参数键值对</li>
+</ul>
+<p>详细参数可见 <a href="https://github.com/upyun/java-sdk/blob/master/src/main/java/com/upyun/CompressHandler.java">CompressHandler</a> 或者<a href="http://docs.upyun.com/cloud/unzip/">官网 API 文档</a>。</p>
+<p>详细示例见 <a href="https://github.com/upyun/java-sdk/blob/master/src/main/java/demo/CompressDemo.java">CompressDemo</a></p>
+<p><a name="异步文件拉取"></a></p>
+<h3 id="异步文件拉取">异步文件拉取</h3>
+<h4 id="初始化-compresshandler-2">初始化 CompressHandler</h4>
+<pre><code class="language-java">	MediaHandler handle = new MediaHandler(BUCKET_NAME, OPERATOR_NAME, OPERATOR_PWD);
+</code></pre>
+<p>参数说明：同上</p>
+<h4 id="发起异步处理请求-3">发起异步处理请求</h4>
+<pre><code class="language-java">	 public Result process(Map&lt;String, Object&gt; params) throws IOException 
+</code></pre>
+<p><strong>参数说明：</strong></p>
+<ul>
+<li><code>params </code>  参数键值对</li>
+</ul>
+<p>详细参数可见 <a href="https://github.com/upyun/java-sdk/blob/master/src/main/java/com/upyun/PullingHandler.java">PullingHandler</a> 或者<a href="http://docs.upyun.com/cloud/spider/">官网 API 文档</a>。</p>
+<p>详细示例见 <a href="https://github.com/upyun/java-sdk/blob/master/src/main/java/demo/PullingDemo.java">PullingDemo</a></p>
+<p><a name="文档转换"></a></p>
+<h3 id="文档转换">文档转换</h3>
+<h4 id="初始化-compresshandler-3">初始化 CompressHandler</h4>
+<pre><code class="language-java">	ConvertHandler handle = new ConvertHandler(BUCKET_NAME, OPERATOR_NAME, OPERATOR_PWD);
+</code></pre>
+<p>参数说明：同上</p>
+<h4 id="发起异步处理请求-4">发起异步处理请求</h4>
+<pre><code class="language-java">	 public Result process(Map&lt;String, Object&gt; params) throws IOException 
+</code></pre>
+<p><strong>参数说明：</strong></p>
+<ul>
+<li><code>params </code>  参数键值对</li>
+</ul>
+<p>详细参数可见 <a href="https://github.com/upyun/java-sdk/blob/master/src/main/java/com/upyun/ConvertHandler.java">ConvertHandler</a> 或者<a href="http://docs.upyun.com/cloud/uconvert/">官网 API 文档</a>。</p>
+<p>详细示例见 <a href="https://github.com/upyun/java-sdk/blob/master/src/main/java/demo/ConvertDemo.java">JigsawDemo</a></p>
+<p><a name="图片拼接"></a></p>
+<h3 id="图片拼接">图片拼接</h3>
+<h4 id="初始化-jigsawhandler">初始化 JigsawHandler</h4>
+<pre><code class="language-java">	JigsawHandler handle = new JigsawHandler(BUCKET_NAME, OPERATOR_NAME, OPERATOR_PWD);
+</code></pre>
+<p>参数说明：同上</p>
+<h4 id="发起异步处理请求-5">发起异步处理请求</h4>
+<pre><code class="language-java">	 public Result process(Map&lt;String, Object&gt; params) throws IOException 
+</code></pre>
+<p><strong>参数说明：</strong></p>
+<ul>
+<li><code>params </code>  参数键值对</li>
+</ul>
+<p>详细参数可见 <a href="https://github.com/upyun/java-sdk/blob/master/src/main/java/com/upyun/JigsawHandler.java">JigsawHandler</a> 或者<a href="http://docs.upyun.com/cloud/async_image/">官网 API 文档</a>。</p>
+<p>详细示例见 <a href="https://github.com/upyun/java-sdk/blob/master/src/main/java/demo/JigsawDemo.java">JigsawDemo</a></p>
+<p><a name="错误说明"></a><br>
+##错误说明</p>
+<p>请参照 <a href="http://docs.upyun.com/api/errno/#api">API 错误码表</a></p>
+
+              </div>
+              <div class="post-footer">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      学海拾遗
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://bitxiaoxia.github.io/post/CvE3gcpW2/" title="又拍云JAVA SDK文档">又拍云JAVA SDK文档</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，转载请注明出处！
+    </li>
+  </ul>
+  <div class="tags">
+    
+  </div>
+  <div class="nav">
+    <div class="nav-prev">
+      
+    </div>
+    <div class="nav-next">
+      
+    </div>
+  </div>
+</div>
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-box">
+  <footer class="footer">
+    <div class="copyright">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | © 2019-2020 Theme By HsxyHao
+    </div>
+    <div class="poweredby">
+      转载注明出处</p>
+Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </div>
+  </footer>
+  
+  
+  <div class="pisces back-to-top" id="back_to_top">
+    <i class="fa fa-arrow-up"></i>
+    
+    <span class="scrollpercent">
+      <span id="back_to_top_text">0</span>%
+    </span>
+    
+  </div>
+  
+  
+  
+</div>
+<script>
+
+  let sideBarOpen = 'sidebar-open';
+  let body = document.body;
+  let back2Top = document.querySelector('#back_to_top'),
+  back2TopText = document.querySelector('#back_to_top_text'),
+  drawerBox = document.querySelector('#drawer_box'),
+  rightSideBar = document.querySelector('.sidebar'),
+  viewport = document.querySelector('body');
+
+  function scrollAnimation(currentY, targetY) {
+   
+    let needScrollTop = targetY - currentY
+    let _currentY = currentY
+    setTimeout(() => {
+      const dist = Math.ceil(needScrollTop / 10)
+      _currentY += dist
+      window.scrollTo(_currentY, currentY)
+      if (needScrollTop > 10 || needScrollTop < -10) {
+        scrollAnimation(_currentY, targetY)
+      } else {
+        window.scrollTo(_currentY, targetY)
+      }
+    }, 1)
+  }
+
+  back2Top.addEventListener("click", function(e) {
+    scrollAnimation(document.scrollingElement.scrollTop, 0);
+    e.stopPropagation();
+    return false;
+  });
+  
+  window.addEventListener('scroll', function(e) {
+    let percent = document.scrollingElement.scrollTop / (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight) * 100;
+    if (percent > 1 && !back2Top.classList.contains('back-top-active')) {
+      back2Top.classList.add('back-top-active');
+    }
+    if (percent == 0) {
+      back2Top.classList.remove('back-top-active');
+    }
+    if (back2TopText) {
+      back2TopText.textContent = Math.floor(percent);
+    }
+  });
+
+  
+  let hasCacu = false;
+  window.onresize = function() {
+    if (window.width > 991) {
+      calcuHeight();
+    } else {
+      hasCacu = false;
+    }
+  }
+
+  function calcuHeight() {
+    // 动态调整站点概览高度
+    if (!hasCacu && back2Top.classList.contains('pisces') || back2Top.classList.contains('gemini')) {
+      let sideBar = document.querySelector('.sidebar');
+      let navUl = document.querySelector('#site_nav');
+      sideBar.style = 'margin-top:' + (navUl.offsetHeight + navUl.offsetTop + 15) + 'px;';
+      hasCacu = true;
+    }
+  }
+  calcuHeight();
+  
+  let open = false, MOTION_TIME = 300, RIGHT_MOVE_DIS = '320px';
+
+  if (drawerBox) {
+    let rightMotions = document.querySelectorAll('.right-motion');
+    let right = drawerBox.classList.contains('right');
+
+    let transitionDir = right ? "transition.slideRightIn" : "transition.slideLeftIn";
+
+    let openProp, closeProp;
+    if (right) {
+      openProp = {
+        paddingRight: RIGHT_MOVE_DIS 
+      };
+      closeProp = {
+        paddingRight: '0px'
+      };
+    } else {
+      openProp = {
+        paddingLeft: RIGHT_MOVE_DIS 
+      };
+      closeProp = {
+        paddingLeft: '0px'
+      };
+    }
+
+    drawerBox.onclick = function() {
+      open = !open;
+      window.Velocity(rightSideBar, 'stop');
+      window.Velocity(viewport, 'stop');
+      window.Velocity(rightMotions, 'stop');
+      if (open) {
+        window.Velocity(rightSideBar, {
+          width: RIGHT_MOVE_DIS
+        }, {
+          duration: MOTION_TIME,
+          begin: function() {
+            window.Velocity(rightMotions, transitionDir,{ });
+          }
+        })
+        window.Velocity(viewport, openProp,{
+          duration: MOTION_TIME
+        });
+      } else {
+        window.Velocity(rightSideBar, {
+          width: '0px'
+        }, {
+          duration: MOTION_TIME,
+          begin: function() {
+            window.Velocity(rightMotions, {
+              opacity: 0
+            });
+          }
+        })
+        window.Velocity(viewport, closeProp ,{
+          duration: MOTION_TIME
+        });
+      }
+      for (let i = 0; i < drawerBox.children.length; i++) {
+        drawerBox.children[i].classList.toggle('muse-line');
+      }
+      drawerBox.classList.toggle(sideBarOpen);
+    }
+  }
+
+  // 代码高亮
+  hljs.initHighlightingOnLoad();
+
+</script>
+    </div>
+  </body>
+  <script src="/media/js/motion.js"></script>
+</html>
